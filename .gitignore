@@ -1,0 +1,4 @@
+# Default ignored files
+.idea/
+target/
+src/main/java/model/Main.java
