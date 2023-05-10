@@ -26,4 +26,7 @@ public class SimpleTask extends Task{
     public void showZone(){
         assignedZone.showZone();
     }
+    public FreeZone getAssignedZone(){
+        return assignedZone;
+    }
 }

@@ -139,4 +139,8 @@ public class FreeZone implements Comparable<FreeZone> {
     public int compareTo(FreeZone o) {
         return startTime.compareTo(o.getStartTime());
     }
+    public boolean contains(LocalTime time){
+        return (time.isAfter(startTime) || time.equals(startTime)) && (time.isBefore(endTime) || time.equals(endTime));
+    }
+
 }

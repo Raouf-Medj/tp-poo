@@ -3,6 +3,7 @@ package model;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -52,4 +53,25 @@ public class ComplexTask extends Task{
             iter.next().showZone();
         }
     }
+
+    // Goto Task for full explanation of exceptions
+    public boolean isInsertable(FreeZone zone, LocalTime insertionTime){
+        //must check first that it is unscheduled !
+        // verify wether the zone is after the deadline of the task and that the zone is not occupied
+        if(zone.contains(insertionTime) && !(zone instanceof OccupiedZone) ){
+            // no need to check if the task fits in the zone since it will decompose anyways
+            return true;
+
+        }
+        return false;
+
+    }
+
+    public boolean isTotallyFree(){
+        return zonesNumber()==0;
+    }
+    public ArrayList<FreeZone> getAssignedZones(){
+        return assignedZones;
+    }
 }
+
