@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="460.0" prefWidth="800.0">
+         <children>
+            <Label text="Welcome to the Planify login page">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="55.0" prefWidth="317.0">
+               <children>
+                  <Label text="Username">
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="username" onKeyPressed="#clearErrorMessage" prefHeight="25.0" prefWidth="258.0">
+                     <padding>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
+                     </padding>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox prefHeight="55.0" prefWidth="317.0">
+               <children>
+                  <Label text="Password">
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="password" onKeyReleased="#clearErrorMessage">
+                     <padding>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
+                     </padding>
+                  </PasswordField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="504.0" text="Login">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+            <HBox alignment="CENTER" prefHeight="28.0" prefWidth="277.0">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="128.0" text="Don't have an account? " />
+                  <Hyperlink onAction="#switchToSignup" prefHeight="29.0" prefWidth="49.0" text="Sign up" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <Label fx:id="errorMessage" style="-fx-text-fill: crimson;" text="Label" visible="false">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="50.0" left="200.0" right="200.0" top="60.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
