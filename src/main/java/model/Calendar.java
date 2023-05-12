@@ -2,9 +2,7 @@ package model;
 import model.users.User;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Calendar {
     // each user is bonded with one calendar and vice-versa
@@ -12,6 +10,7 @@ public class Calendar {
     // a calendar should contains all plannings
     private ArrayList<Planning> plannings = new ArrayList<>();
     private TreeMap<LocalDate, Day> calendar = new TreeMap<>();
+    private List<Task> unscheduled = new ArrayList<>();
 
     // add a structure for tasks (scheduled and unscheduled)
 

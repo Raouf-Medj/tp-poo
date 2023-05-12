@@ -31,6 +31,10 @@ public class User {
         return connected;
     }
 
+    public String getPseudo() {
+        return pseudo;
+    }
+
     //    @Override
 //    public int hashCode() {
 //        return Objects.hash(pseudo, mdp, connected);
