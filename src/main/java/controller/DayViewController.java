@@ -105,7 +105,7 @@ public class DayViewController {
     }
 
     @FXML
-    private ProgressBar progressBar;
+    private ProgressBar progressBar=new ProgressBar();
 
 
 
@@ -179,9 +179,23 @@ public class DayViewController {
     }
 
     public void setProgressState(){
+        comment.setStyle("-fx-text-fill: blue;");
         comment.setText("A journey with a thousand miles begins with a single step");
+        progressBar.setProgress(0);
         if(numberOfTasks==0){
             comment.setText("Hooray ! no tasks for this day, you can still add some right away");
+            comment.setStyle("-fx-text-fill: Green;");
+            progressBar.setProgress(0);
+        }
+        else{
+            progressBar.setProgress(((double)numberOfDoneTasks)/((double)numberOfTasks));
+            if(numberOfTasks==numberOfDoneTasks){
+                comment.setText("Well done ! all tasks finished");
+                comment.setStyle("-fx-text-fill: Green;");
+            }else if(numberOfDoneTasks>=1){
+                comment.setText("You have "+(numberOfTasks-numberOfDoneTasks)+" out of "+numberOfTasks+" tasks done");
+                comment.setStyle("-fx-text-fill: Black;");
+            }
         }
     }
 }

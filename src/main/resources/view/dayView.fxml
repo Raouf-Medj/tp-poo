@@ -83,9 +83,9 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="59.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="34.0" prefWidth="330.0" text="insert enocouraging message / comment here" translateX="180.0">
+            <Label fx:id="comment" alignment="CENTER" prefHeight="34.0" prefWidth="890.0" text="insert enocouraging message / comment here" translateX="180.0">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <HBox.margin>
                   <Insets />
@@ -140,7 +140,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ProgressBar prefHeight="24.0" prefWidth="538.0" progress="0.8" />
+                  <ProgressBar fx:id="progressBar" prefHeight="24.0" prefWidth="538.0" progress="0.8" />
                </children>
             </GridPane>
          </children>
