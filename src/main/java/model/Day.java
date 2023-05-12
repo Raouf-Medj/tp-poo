@@ -403,4 +403,20 @@ public class Day implements Comparable<Day> {
     public boolean appendTask(Task task,Duration minimumZoneLength,FreeZone zone){
         return appendTask(task,minimumZoneLength,zone.getStartTime());
     }
+
+    @Override
+    public String toString() {
+        return getDate().toString();
+    }
+
+    public Duration getDurationLeft(){
+        Duration sum=Duration.ZERO;
+        for(FreeZone zn: zones){
+            if (!(zn instanceof OccupiedZone)){
+                sum=sum.plus(zn.getDuration());
+            }
+        }
+        return sum;
+    }
+
 }

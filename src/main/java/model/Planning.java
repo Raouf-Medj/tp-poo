@@ -1,5 +1,6 @@
 package model;
-
+import java.lang.reflect.Array;
+import java.util.Collections;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -42,4 +43,7 @@ public class Planning {
         }
     }
 
+    public TreeMap<LocalDate, Day> getDays() {
+        return days;
+    }
 }

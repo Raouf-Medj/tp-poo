@@ -1,9 +1,6 @@
 package model;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
+import java.time.*;
 
 abstract public class Task implements Comparable<Task>{
 
@@ -77,6 +74,14 @@ abstract public class Task implements Comparable<Task>{
         this.deadLine = deadLine;
     }
 
+    public Duration durationFromDeadLine(){
+        return Duration.between(LocalDateTime.now(),getDeadLine());
+    }
+
+    public Duration durationFromDeadLine(LocalDate currentDay){
+        return Duration.between(currentDay,getDeadLine() );
+    }
+
     abstract public void appendZone(FreeZone zone);
 
     /**
@@ -86,9 +91,18 @@ abstract public class Task implements Comparable<Task>{
      *               negative value : o is prior to current
      *               null value (0) : current is as important as o
      */
+
+
     @Override
     public int compareTo(Task o) {
-        return -this.deadLine.compareTo(o.getDeadLine());
+        // if both have got the same deadline (day), we care about priority
+        if(deadLine.toLocalDate().compareTo(o.getDeadLine().toLocalDate()) == 0 ){
+            return compareTo(o,1);
+        }
+        // else we care about deadline
+        else{
+            return -deadLine.toLocalDate().compareTo(o.getDeadLine().toLocalDate());
+        }
     }
 
     /**
@@ -196,6 +210,10 @@ abstract public class Task implements Comparable<Task>{
         return (this.unscheduled==task.getUnscheduled() && this.name==task.getName() && this.deadLine.equals(task.deadLine) && this.duration.minus(task.duration)==Duration.ZERO);
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
 
 

@@ -1,10 +1,9 @@
 package model;
 import model.users.User;
 
+import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Calendar {
     // each user is bonded with one calendar and vice-versa
@@ -53,4 +52,20 @@ public class Calendar {
             System.out.println(entry.getKey() + " ->  " + entry.getValue());
         }
     }
+
+    public ArrayList<Task> fillPlanning(Planning planning, ArrayList<Task> tasks, Duration minimumZoneSize){
+        ArrayList<Task> currentListUnscheduledTasks=new ArrayList<Task>(tasks);
+        currentListUnscheduledTasks.sort(Collections.reverseOrder());
+        planning.showPlanning();
+        Set<Map.Entry<LocalDate, Day> > days = planning.getDays().entrySet();
+
+        boolean dayFilled;
+
+        for (Map.Entry<LocalDate, Day> entry : days) {
+
+        }
+
+        return currentListUnscheduledTasks;
+    }
+
 }
