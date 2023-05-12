@@ -50,6 +50,7 @@ public class Calendar {
     public void showCalendar() {
         for (Map.Entry<LocalDate, Day> entry : calendar.entrySet()) {
             System.out.println(entry.getKey() + " ->  " + entry.getValue());
+            entry.getValue().showDay();
         }
     }
 
@@ -58,11 +59,20 @@ public class Calendar {
         currentListUnscheduledTasks.sort(Collections.reverseOrder());
         planning.showPlanning();
         Set<Map.Entry<LocalDate, Day> > days = planning.getDays().entrySet();
+        Day currentDay;
 
         boolean dayFilled;
 
         for (Map.Entry<LocalDate, Day> entry : days) {
-
+            currentDay = getDay(entry.getValue().getDate());
+            for(Task tsk : currentListUnscheduledTasks){
+                if(tsk.getUnscheduled()){
+                    currentDay.appendTask(tsk,minimumZoneSize);
+                }
+                if(currentDay.getDurationLeft().compareTo(minimumZoneSize)<=0){
+                    break;
+                }
+            }
         }
 
         return currentListUnscheduledTasks;
