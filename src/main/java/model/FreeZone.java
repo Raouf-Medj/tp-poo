@@ -70,8 +70,12 @@ public class FreeZone implements Comparable<FreeZone> {
 
     public ArrayList<FreeZone> appendTask(ComplexTask task,Duration minimumZonePeriod,LocalTime insertionTime,Duration subTaskDuration){
         // here we suppose that the task is unscheduled (not completly scheduled) and also insertable
+
         ArrayList<FreeZone> outPutZones = new ArrayList<FreeZone>(1);
         int splitBeforeIndicator = Duration.between(startTime,insertionTime).compareTo(minimumZonePeriod);
+/*        System.out.println(Duration.between(startTime,insertionTime));
+        System.out.println(insertionTime);
+        System.out.println(startTime);*/
         int splitAfterIndicator =Duration.between(insertionTime.plus(subTaskDuration),endTime).compareTo(minimumZonePeriod);
         LocalTime newStartTime;
         LocalTime newEndTime;
@@ -79,9 +83,11 @@ public class FreeZone implements Comparable<FreeZone> {
         FreeZone zoneAfter;
         OccupiedZone occupiedZone;
         if (splitBeforeIndicator<0){
+/*            System.out.println("yesyes");*/
             newStartTime=startTime;
         }
         else {
+
             newStartTime=insertionTime;
             zoneBefore=new FreeZone(startTime,newStartTime);
             outPutZones.add(zoneBefore);

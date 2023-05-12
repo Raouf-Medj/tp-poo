@@ -28,4 +28,7 @@ public class OccupiedZone extends FreeZone{
         return this.task;
     }
 
+    public String getName() {
+        return name;
+    }
 }

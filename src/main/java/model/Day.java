@@ -325,6 +325,7 @@ public class Day implements Comparable<Day> {
             FreeZone zone=task.getInsertable(this,insertionTime);
             if(zone!=null){
                 removeZone(zone);
+
                 ArrayList<FreeZone> zones=zone.appendTask((ComplexTask)task,minimumZoneLength,insertionTime);
                 for(FreeZone zn:zones){
                     insertZone(zn);
@@ -345,7 +346,7 @@ public class Day implements Comparable<Day> {
             FreeZone zone=task.getInsertable(this,insertionTime);
             if(zone!=null){
                 removeZone(zone);
-                ArrayList<FreeZone> zones=zone.appendTask((SimpleTask)task,minimumZoneLength);
+                ArrayList<FreeZone> zones=zone.appendTask((SimpleTask)task,minimumZoneLength,insertionTime);
                 for (FreeZone zn : zones) {
                     insertZone(zn);
                 }
@@ -356,9 +357,10 @@ public class Day implements Comparable<Day> {
         }
         else if(task instanceof ComplexTask){
             FreeZone zone=task.getInsertable(this,insertionTime);
+            System.out.println("i was here");
             if(zone!=null){
                 removeZone(zone);
-                ArrayList<FreeZone> zones=zone.appendTask((ComplexTask)task,minimumZoneLength,subTaskDuration);
+                ArrayList<FreeZone> zones=zone.appendTask((ComplexTask)task,minimumZoneLength,insertionTime,subTaskDuration);
                 for(FreeZone zn:zones){
                     insertZone(zn);
                 }
