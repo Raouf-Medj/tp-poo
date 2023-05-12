@@ -10,7 +10,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Users users = new Users();
-        users.getUsers().put("Ibrahim", new User("Ibrahim", "321"));
+        users.getUsers().put("", new User("", ""));
 
         Login login = new Login(users);
         login.show();

@@ -14,10 +14,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.users.User;
 import model.users.Users;
-import view.Login;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class LoginController {
     private Users model;
@@ -52,7 +50,7 @@ public class LoginController {
     }
 
     @FXML
-    void login(ActionEvent event) {
+    void login(ActionEvent event) throws IOException {
         String pseudo = username.getText();
         String mdp = password.getText();
         User u = new User(pseudo, mdp);
@@ -62,10 +60,7 @@ public class LoginController {
             if (u.isCorrectPassword(mdp)) {
                 u.setConnected(true);
                 model.setActiveUser(u);
-                // REDIRECT
-//                for (Map.Entry<String, User> e : model.getUsers().entrySet()) {
-//                    System.out.println("USER: "+e.getKey()+" ->  CONNECTED: "+e.getValue().isConnected());
-//                }
+                redirectToDashboard(event);
             }
             else {
                 errorMessage.setText("ERROR: wrong password!");
@@ -119,7 +114,7 @@ public class LoginController {
         stage.show();
     }
 
-    @FXML void signup(ActionEvent event) {
+    @FXML void signup(ActionEvent event) throws IOException {
         String pseudo = usernameSignup.getText();
         String mdp = passwordSignup.getText();
         String mdpConfirm = passwordConfirmSignup.getText();
@@ -133,13 +128,30 @@ public class LoginController {
                 model.getUsers().put(pseudo, u);
                 u.setConnected(true);
                 model.setActiveUser(u);
-                // REDIRECT
+                redirectToDashboard(event);
             }
         }
         else {
             errorMessage.setText("ERROR: username already exists!");
             errorMessage.setVisible(true);
         }
+    }
+
+    void redirectToDashboard(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/dashboard.fxml"));
+        Parent root = loader.load();
+
+        DashboardController controller = loader.getController();
+        controller.setUsersModel(model);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        controller.setCurrentStage(stage);
+        stage.setScene(scene);
+        stage.setTitle("Planify - MEDJADJ & ABOUD - 2023");
+        stage.setResizable(false);
+        stage.show();
     }
 
 }
