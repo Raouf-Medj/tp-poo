@@ -274,7 +274,9 @@ public class Day implements Comparable<Day> {
     // adds a task where possible in a day
     public boolean appendTask(Task task, Duration minimumZoneLength){
         // must check if unschedule before calling this
+
         if(task.isInsertable(this)){
+
             if(task instanceof SimpleTask){
                 FreeZone zone=task.getInsertable(this);
                 if(zone!=null){
@@ -294,6 +296,7 @@ public class Day implements Comparable<Day> {
                     ArrayList<FreeZone> zones=zone.appendTask((ComplexTask)task,minimumZoneLength);
                     for(FreeZone zn:zones){
                         insertZone(zn);
+
                     }
                     return true;
                 }

@@ -57,7 +57,6 @@ public class Calendar {
     public ArrayList<Task> fillPlanning(Planning planning, ArrayList<Task> tasks, Duration minimumZoneSize){
         ArrayList<Task> currentListUnscheduledTasks=new ArrayList<Task>(tasks);
         currentListUnscheduledTasks.sort(Collections.reverseOrder());
-        planning.showPlanning();
         Set<Map.Entry<LocalDate, Day> > days = planning.getDays().entrySet();
         Day currentDay;
 
