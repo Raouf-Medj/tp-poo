@@ -11,11 +11,6 @@ public class SimpleTask extends Task{
         this.assignedZone=null;
     }
 
-    //temp
-    public SimpleTask(String name) {
-        super();
-        this.setName(name);
-    }
 
     private int dayPeriod;
     private FreeZone assignedZone;

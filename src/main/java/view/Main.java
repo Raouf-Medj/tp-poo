@@ -30,14 +30,15 @@ public class Main extends Application {
         //day.appendTask(task2,Duration.ofMinutes(10),LocalTime.of(20,0),Duration.ofHours(1));
         calendar.addDay(day);
         day.showDay();
-
-*//*        Users users = new Users();
-        users.getUsers().put("", new User("", ""));*//*
-
-*//*        Login login = new Login(users);
-        login.show();*//*
         DayView dayView = new DayView( calendar,LocalDate.of(2023,5,12));
         dayView.show();*/
+
+        Users users = new Users();
+        users.getUsers().put("", new User("", ""));
+
+        Login login = new Login(users);
+        login.show();
+
     }
 
 
