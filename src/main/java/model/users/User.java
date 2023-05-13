@@ -1,10 +1,13 @@
 package model.users;
 
+import model.Calendar;
+
 import java.util.Objects;
 
 public class User {
     private String pseudo, mdp;
     private boolean connected;
+    private Calendar calendarModel = null;
 
     public User(String pseudo, String mdp) {
         this.pseudo = pseudo;
@@ -33,6 +36,14 @@ public class User {
 
     public String getPseudo() {
         return pseudo;
+    }
+
+    public Calendar getCalendarModel() {
+        return calendarModel;
+    }
+
+    public void setCalendarModel(Calendar calendarModel) {
+        this.calendarModel = calendarModel;
     }
 
     //    @Override

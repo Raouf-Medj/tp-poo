@@ -9,8 +9,10 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -68,25 +70,23 @@
                                 <ImageView fitHeight="42.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="263.0" style="-fx-background-color: #E3E1E1; -fx-background-radius: 20;">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="263.0" spacing="20.0" style="-fx-background-color: #E3E1E1; -fx-background-radius: 20;">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#prevMonth" text="&lt;" />
-                                <Label fx:id="month" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="MONTH####">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                           <HBox.margin>
-                              <Insets left="9.0" right="5.0" />
-                           </HBox.margin>
-                                </Label>
-                                <Label fx:id="year" text="YEAR">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                           <HBox.margin>
-                              <Insets right="9.0" />
-                           </HBox.margin>
-                                </Label>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                                      <Label fx:id="month" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="MONTH####">
+                                          <font>
+                                              <Font size="16.0" />
+                                          </font>
+                                      </Label>
+                                      <Label fx:id="year" text="YEAR">
+                                          <font>
+                                              <Font size="16.0" />
+                                          </font>
+                                      </Label>
+                           </children>
+                        </VBox>
                                 <Button mnemonicParsing="false" onAction="#nextMonth" text="&gt;" />
                             </children>
                             <HBox.margin>
@@ -109,22 +109,72 @@
                         <VBox prefHeight="600.0" prefWidth="313.0">
                             <children>
                                 <ListView fx:id="unscheduledTasksList" prefHeight="545.0" prefWidth="313.0" />
-                                <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="313.0" text="Plan selected">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Button>
+                        <HBox prefHeight="58.0" prefWidth="281.0" spacing="5.0">
+                           <children>
+                                      <Button mnemonicParsing="false" onAction="#planSelected" prefHeight="55.0" prefWidth="313.0" text="Plan">
+                                          <font>
+                                              <Font size="17.0" />
+                                          </font>
+                                      </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeSelected" prefHeight="55.0" prefWidth="313.0" text="Remove">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                             </children>
                         </VBox>
-                        <Pane prefHeight="600.0" prefWidth="1031.0" style="-fx-background-color: ivory;">
-                            <children>
-                                <Label layoutX="387.0" layoutY="268.0" text="CALENDAR">
-                                    <font>
-                                        <Font name="System Bold" size="43.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </Pane>
+                  <VBox prefHeight="600.0" prefWidth="971.0" style="-fx-background-color: BEIGE;">
+                     <children>
+                        <GridPane alignment="CENTER" hgap="20.0" prefHeight="18.0" prefWidth="974.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="150.0" text="Sunday" />
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="23.0" prefHeight="17.0" prefWidth="150.0" text="Monday" GridPane.columnIndex="1" />
+                              <Label alignment="CENTER" layoutX="149.0" layoutY="23.0" prefHeight="17.0" prefWidth="150.0" text="Tuesday" GridPane.columnIndex="2" />
+                              <Label alignment="CENTER" layoutX="288.0" layoutY="23.0" prefHeight="17.0" prefWidth="150.0" text="Wednesday" GridPane.columnIndex="3" />
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="23.0" prefHeight="17.0" prefWidth="150.0" text="Thursday" GridPane.columnIndex="4" />
+                              <Label alignment="CENTER" layoutX="565.0" layoutY="23.0" prefHeight="17.0" prefWidth="150.0" text="Saturday" GridPane.columnIndex="6" />
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="23.0" prefHeight="17.0" prefWidth="150.0" text="Friday" GridPane.columnIndex="5" />
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="monthGrid" hgap="20.0" prefHeight="572.0" prefWidth="969.0" vgap="10.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
                     </children>
                 </HBox>
             </children>

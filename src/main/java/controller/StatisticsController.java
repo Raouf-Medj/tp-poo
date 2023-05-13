@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
+import model.Calendar;
 import model.users.*;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class StatisticsController {
     private Stage currentStage;
     private Users usersModel;
+    private Calendar calendarModel;
     // other models
 
     @FXML
@@ -27,6 +29,7 @@ public class StatisticsController {
 
         DashboardController controller = loader.getController();
         controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
         // other models
 
         Scene scene = new Scene(root);
@@ -45,6 +48,7 @@ public class StatisticsController {
 
         ProjectsController controller = loader.getController();
         controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
         // other models
 
         Scene scene = new Scene(root);
@@ -91,5 +95,9 @@ public class StatisticsController {
 
     public void setUsersModel(Users usersModel) {
         this.usersModel = usersModel;
+    }
+
+    public void setCalendarModel(Calendar calendarModel) {
+        this.calendarModel = calendarModel;
     }
 }

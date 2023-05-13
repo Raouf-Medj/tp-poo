@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import model.Calendar;
 import model.users.User;
 import model.users.Users;
 
@@ -60,7 +61,8 @@ public class LoginController {
             if (u.isCorrectPassword(mdp)) {
                 u.setConnected(true);
                 model.setActiveUser(u);
-                redirectToDashboard(event);
+                if (u.getCalendarModel() ==  null) u.setCalendarModel(new Calendar()); //temp
+                redirectToDashboard(event, u.getCalendarModel());
             }
             else {
                 errorMessage.setText("ERROR: wrong password!");
@@ -128,7 +130,9 @@ public class LoginController {
                 model.getUsers().put(pseudo, u);
                 u.setConnected(true);
                 model.setActiveUser(u);
-                redirectToDashboard(event);
+                Calendar newCalendar = new Calendar();
+                u.setCalendarModel(newCalendar);
+                redirectToDashboard(event, newCalendar);
             }
         }
         else {
@@ -137,13 +141,15 @@ public class LoginController {
         }
     }
 
-    void redirectToDashboard(ActionEvent event) throws IOException {
+    void redirectToDashboard(ActionEvent event, Calendar calendarModel) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/dashboard.fxml"));
         Parent root = loader.load();
 
         DashboardController controller = loader.getController();
         controller.setUsersModel(model);
+        System.out.println(calendarModel);
+        controller.setCalendarModel(calendarModel);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

@@ -42,4 +42,12 @@ public class Planning {
         }
     }
 
+    @Override
+    public String toString() {
+        return startDay.toString()+" -> "+endDay.toString();
+    }
+
+    public TreeMap<LocalDate, Day> getDays() {
+        return days;
+    }
 }

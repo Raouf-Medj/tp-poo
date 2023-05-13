@@ -7,6 +7,7 @@ import java.time.Period;
 
 abstract public class Task implements Comparable<Task>{
 
+    public Task() {}
     public Task(String name,Category category,Priority priority,LocalDateTime deadLine,Duration duration){
         this.name=name;
         this.category=category;
@@ -26,8 +27,15 @@ abstract public class Task implements Comparable<Task>{
     private LocalDateTime deadLine;
     private Duration duration;
     private Boolean unscheduled;
+    private Project project;
 
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
+    public Project getProject() {
+        return project;
+    }
 
     public Boolean getUnscheduled() {
         return unscheduled;
@@ -196,6 +204,10 @@ abstract public class Task implements Comparable<Task>{
         return (this.unscheduled==task.getUnscheduled() && this.name==task.getName() && this.deadLine.equals(task.deadLine) && this.duration.minus(task.duration)==Duration.ZERO);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
 
 

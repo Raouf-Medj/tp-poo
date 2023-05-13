@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectsController">
+    <top>
+        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu disable="true" mnemonicParsing="false" text="New">
+                </Menu>
+                <Menu mnemonicParsing="false" text="View">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#viewDashboard" text="Dashboard (Calendar)" />
+                        <MenuItem mnemonicParsing="false" onAction="#viewToday" text="Today" />
+                    </items></Menu>
+                <Menu mnemonicParsing="false" text="Projects/Statistics">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#gotoProjects" text="Projects" />
+                        <MenuItem mnemonicParsing="false" onAction="#gotoStatistics" text="Statistics" />
+                    </items></Menu>
+                <Menu disable="true" mnemonicParsing="false" text="Logout">
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="46.0" prefWidth="149.0" text="PROJECT:">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Label>
+                  <Label text="\@NAME" wrapText="true">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <PieChart prefHeight="775.0" prefWidth="339.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
