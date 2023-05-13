@@ -83,7 +83,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="59.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="comment" alignment="CENTER" prefHeight="34.0" prefWidth="890.0" text="insert enocouraging message / comment here" translateX="180.0">
+            <Label fx:id="comment" alignment="CENTER" prefHeight="64.0" prefWidth="938.0" style="-fx-background-color: e9e9e9;" text="insert enocouraging message / comment here" translateX="155.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -97,34 +97,34 @@
    <right>
       <VBox prefHeight="710.0" prefWidth="986.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="372.0" prefWidth="986.0">
+            <GridPane prefHeight="758.0" prefWidth="986.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="257.6000122070312" minHeight="10.0" prefHeight="252.79999389648438" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="180.00000610351563" minHeight="10.0" prefHeight="120.00000610351563" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="413.5999816894531" minHeight="10.0" prefHeight="179.99999084472654" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="359.20000915527345" minHeight="10.0" prefHeight="259.20000915527345" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="currentDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="122.0" text="Actual Date">
+                  <Label fx:id="currentDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="392.0" style="-fx-background-color: #d9d9d9;" text="Actual Date">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
                         <Label text="Selected Task : ">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="selectedTaskName" text="Label" textFill="#3b7fff">
+                        <Label fx:id="selectedTaskName" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="219.0" style="-fx-background-color: #aaaaaa;" text="Label" textFill="WHITE">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <Button fx:id="taskViewButton" mnemonicParsing="false" onAction="#goToTask" prefHeight="38.0" prefWidth="107.0" text="More details" />
