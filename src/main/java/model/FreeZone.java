@@ -15,8 +15,6 @@ public class FreeZone implements Comparable<FreeZone> {
         this.endTime = endTime;
     }
 
-
-
     public LocalTime getEndTime() {
         return endTime;
     }

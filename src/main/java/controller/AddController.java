@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.URL;
 import java.util.*;
 import java.time.*;
@@ -172,7 +173,33 @@ public class AddController implements Initializable {
 
     @FXML
     void addFreezones(ActionEvent event) {
-        // add the zones
+
+        boolean stop = false;
+        for (Map.Entry<LocalDate, Day> e : newPlanning.getDays().entrySet()) {
+            if (startHoursInputs.get(e.getKey()).getValue() >=  endHoursInputs.get(e.getKey()).getValue()) {
+                stop = true;
+            }
+            if (stop) continue;
+        }
+        if (!stop) {
+            for (Map.Entry<LocalDate, Day> e : newPlanning.getDays().entrySet()) {
+                if (e.getValue().getZonesNumber() ==  0) {
+                    e.getValue().insertZone(new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)));
+                }
+                else {
+                    //ask the user if he wants to change the freezones of the day (extention?), but dont delete existing planned tasks!! (if time)
+                    System.out.println("Feature to add later: check AddController.java:addFreezones()");
+                }
+            }
+            currentStage.close();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid timeslot");
+            alert.setContentText("Please enter valid timeslots");
+            alert.showAndWait();
+        }
     }
 
     public void setCalendarModel(Calendar calendarModel) {

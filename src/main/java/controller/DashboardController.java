@@ -26,6 +26,7 @@ import java.nio.file.FileSystemAlreadyExistsException;
 import java.time.*;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import static javafx.collections.FXCollections.*;
@@ -312,6 +313,12 @@ public class DashboardController implements Initializable {
                             public void handle(MouseEvent event) {
                                 // temp
                                 System.out.println(toView.getYear()+" - "+toView.getMonth()+" - "+currentDate);
+                                Day day = calendarModel.getDay(LocalDate.of(toView.getYear(), toView.getMonthValue(), currentDate));
+                                if (day !=  null) {
+                                    for (FreeZone z : day.getZones()) {
+                                        z.showZone();
+                                    }
+                                }
                                 // redirect to DayView
                             }
                         });
@@ -320,6 +327,7 @@ public class DashboardController implements Initializable {
 //                        if(calendarActivities != null){
 //                            createCalendarActivity(calendarActivities, rectangleHeight, rectangleWidth, stackPane);
 //                        }
+
                     }
                     if(LocalDate.now().getYear() == toView.getYear() && LocalDate.now().getMonth() == toView.getMonth() && LocalDate.now().getDayOfMonth() == currentDate){
                         rectangle.setStroke(Color.DODGERBLUE);
