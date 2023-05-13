@@ -25,9 +25,9 @@ public class Main extends Application {
 
         day.insertZone(freeZone);
         day.insertZone(freeZone2);
-        day.appendTask(task1,Duration.ofMinutes(10),LocalTime.of(15,0));
-        day.appendTask(task2,Duration.ofMinutes(10),LocalTime.of(8,30),Duration.ofHours(1));
-        day.appendTask(task2,Duration.ofMinutes(10),LocalTime.of(20,0),Duration.ofHours(1));
+        //day.appendTask(task1,Duration.ofMinutes(10),LocalTime.of(15,0));
+        //day.appendTask(task2,Duration.ofMinutes(10),LocalTime.of(8,30),Duration.ofHours(1));
+        //day.appendTask(task2,Duration.ofMinutes(10),LocalTime.of(20,0),Duration.ofHours(1));
         calendar.addDay(day);
         day.showDay();
 
