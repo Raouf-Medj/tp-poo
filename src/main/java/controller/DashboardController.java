@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -56,13 +57,15 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        toView = LocalDate.now();
-        month.setText(toView.getMonth().toString());
-        year.setText(toView.getYear()+"");
-        monthGrid.getChildren().clear();
-        drawCalendar();
+        if (month !=  null) {
+            toView = LocalDate.now();
+            month.setText(toView.getMonth().toString());
+            year.setText(toView.getYear()+"");
+            monthGrid.getChildren().clear();
+            drawCalendar();
 
-        unscheduledTasksList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            unscheduledTasksList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        }
     }
 
     public void setUsersModel(Users usersModel) {
@@ -72,27 +75,30 @@ public class DashboardController implements Initializable {
 
     public void setCalendarModel(Calendar calendarModel) {
         this.calendarModel = calendarModel;
-        unscheduledTasksList.setItems(calendarModel.getUnscheduled());
 
-        // Add a listener to the tasks list to update the ListView
-        calendarModel.getUnscheduled().addListener((ListChangeListener<Task>) change -> {
-            while (change.next()) {
-                if (change.wasAdded()) {
-                    for (Task task : change.getAddedSubList()) {
-                        if (!unscheduledTasksList.getItems().contains(task)) {
-                            unscheduledTasksList.getItems().add(task);
+        if(unscheduledTasksList !=  null) {
+            unscheduledTasksList.setItems(calendarModel.getUnscheduled());
+
+            // Add a listener to the tasks list to update the ListView
+            calendarModel.getUnscheduled().addListener((ListChangeListener<Task>) change -> {
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        for (Task task : change.getAddedSubList()) {
+                            if (!unscheduledTasksList.getItems().contains(task)) {
+                                unscheduledTasksList.getItems().add(task);
+                            }
+                        }
+                    }
+                    if (change.wasRemoved()) {
+                        for (Task task : change.getRemoved()) {
+                            if (unscheduledTasksList.getItems().contains(task)) {
+                                unscheduledTasksList.getItems().remove(task);
+                            }
                         }
                     }
                 }
-                if (change.wasRemoved()) {
-                    for (Task task : change.getRemoved()) {
-                        if (unscheduledTasksList.getItems().contains(task)) {
-                            unscheduledTasksList.getItems().remove(task);
-                        }
-                    }
-                }
-            }
-        });
+            });
+        }
     }
 
     public void setCurrentStage(Stage currentStage) {
@@ -143,8 +149,22 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    void viewToday(ActionEvent event) {
+    void viewToday(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/dayView.fxml"));
+        Parent root = loader.load();
 
+        DayViewController controller = loader.getController();
+        controller.setModel(calendarModel, LocalDate.now());
+        controller.setUsersModel(usersModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : TodayView");
+        currentStage.setResizable(false);
+        controller.setCurrentStage(currentStage);
+        currentStage.show();
     }
 
     @FXML
@@ -275,6 +295,40 @@ public class DashboardController implements Initializable {
         calendarModel.getUnscheduled().removeAll(selectedTasks);
     }
 
+    @FXML
+    void changeMinTaskDuration(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/changeMinTaskDuration.fxml"));
+        Parent root = loader.load();
+
+        DashboardController controller = loader.getController();
+        controller.setCalendarModel(calendarModel);
+        controller.initSpinner();
+        // other models
+
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Settings: edit min. task duration");
+        newStage.setResizable(false);
+        controller.setCurrentStage(newStage);
+        newStage.show();
+    }
+
+    @FXML
+    private Spinner<Integer> minutesSpinner;
+
+    @FXML
+    void updateDuration(ActionEvent event) {
+        calendarModel.setMinDuration(Duration.ofMinutes(minutesSpinner.getValue()));
+        currentStage.close();
+    }
+
+    void initSpinner() {
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 5);
+        minutesSpinner.setValueFactory(valueFactory);
+    }
+
     void drawCalendar() {
 
         int monthMaxDate = toView.getMonth().maxLength();
@@ -302,7 +356,7 @@ public class DashboardController implements Initializable {
                 if(calculatedDate > dateOffset){
                     int currentDate = calculatedDate - dateOffset;
                     if(currentDate <= monthMaxDate){
-                        Text date = new Text(String.valueOf(currentDate));
+                        Label date = new Label(String.valueOf(currentDate));
                         double textTranslationY = - (44) * 0.75;
                         date.setTranslateY(textTranslationY);
                         date.setTranslateX(119*0.46);
@@ -319,7 +373,26 @@ public class DashboardController implements Initializable {
                                         z.showZone();
                                     }
                                 }
-                                // redirect to DayView
+                                try {
+                                    FXMLLoader loader = new FXMLLoader();
+                                    loader.setLocation(getClass().getResource("/view/dayView.fxml"));
+                                    Parent root = loader.load();
+
+                                    DayViewController controller = loader.getController();
+                                    controller.setModel(calendarModel, LocalDate.of(toView.getYear(), toView.getMonthValue(), currentDate));
+                                    controller.setUsersModel(usersModel);
+                                    // other models
+
+                                    Scene scene = new Scene(root);
+                                    currentStage.setScene(scene);
+                                    currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : DayView");
+                                    currentStage.setResizable(false);
+                                    controller.setCurrentStage(currentStage);
+                                    currentStage.show();
+                                }
+                                catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
 

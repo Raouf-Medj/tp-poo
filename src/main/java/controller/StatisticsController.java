@@ -11,6 +11,7 @@ import model.Calendar;
 import model.users.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class StatisticsController {
     private Stage currentStage;
@@ -85,8 +86,22 @@ public class StatisticsController {
     }
 
     @FXML
-    void viewToday(ActionEvent event) {
+    void viewToday(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/dayView.fxml"));
+        Parent root = loader.load();
 
+        DayViewController controller = loader.getController();
+        controller.setModel(calendarModel, LocalDate.now());
+        controller.setUsersModel(usersModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : TodayView");
+        currentStage.setResizable(false);
+        controller.setCurrentStage(currentStage);
+        currentStage.show();
     }
 
     public void setCurrentStage(Stage currentStage) {

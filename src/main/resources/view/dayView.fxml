@@ -20,13 +20,7 @@
    <top>
        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
            <menus>
-               <Menu mnemonicParsing="false" text="New">
-                   <items>
-                       <MenuItem mnemonicParsing="false" onAction="#newTask" text="Task" />
-                       <MenuItem mnemonicParsing="false" onAction="#newPlanning" text="Planning" />
-                       <MenuItem mnemonicParsing="false" onAction="#newProject" text="Project" />
-                   </items>
-               </Menu>
+               <Menu disable="true" mnemonicParsing="false" text="New" />
                <Menu mnemonicParsing="false" text="View">
                    <items>
                        <MenuItem mnemonicParsing="false" onAction="#viewDashboard" text="Dashboard (Calendar)" />
@@ -37,11 +31,7 @@
                        <MenuItem mnemonicParsing="false" onAction="#gotoProjects" text="Projects" />
                        <MenuItem mnemonicParsing="false" onAction="#gotoStatistics" text="Statistics" />
                    </items></Menu>
-               <Menu mnemonicParsing="false" onAction="#logout" text="Logout">
-                   <items>
-                       <MenuItem mnemonicParsing="false" text="Logout" />
-                   </items>
-               </Menu>
+               <Menu disable="true" mnemonicParsing="false" text="Logout" />
            </menus>
        </MenuBar>
    </top>

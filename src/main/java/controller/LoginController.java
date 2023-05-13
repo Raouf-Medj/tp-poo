@@ -155,7 +155,7 @@ public class LoginController {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         controller.setCurrentStage(stage);
         stage.setScene(scene);
-        stage.setTitle("Planify - MEDJADJ & ABOUD - 2023");
+        stage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Dashboard");
         stage.setResizable(false);
         stage.show();
     }

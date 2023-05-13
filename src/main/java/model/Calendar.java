@@ -15,9 +15,15 @@ public class Calendar {
     private final ObservableList<Project> projects = FXCollections.observableArrayList();
     private final TreeMap<LocalDate, Day> calendar = new TreeMap<>();
     private final ObservableList<Task> unscheduled = FXCollections.observableArrayList();
+    private Duration minDuration = Duration.ofMinutes(30);
 
-    // add a structure for tasks (scheduled and unscheduled)
+    public void setMinDuration(Duration minDuration) {
+        this.minDuration = minDuration;
+    }
 
+    public Duration getMinDuration() {
+        return minDuration;
+    }
 
     public void addDay(Day day) {
         calendar.putIfAbsent(day.getDate(), day);

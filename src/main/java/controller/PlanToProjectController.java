@@ -3,10 +3,14 @@ package controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import model.Calendar;
 import model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlanToProjectController {
     private Stage currentStage;
@@ -30,7 +34,14 @@ public class PlanToProjectController {
         }
 
         if (selectedPlanning !=  null) {
-            // for each task: add (plan) task to planning
+            List<Task> unscheduled = calendarModel.fillPlanning(selectedPlanning, new ArrayList<>(selectedTasks), calendarModel.getMinDuration());
+            if (!unscheduled.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Warning");
+                alert.setHeaderText("No free timeslots defined");
+                alert.setContentText("Some tasks were not planned, please extend the planning");
+                alert.showAndWait();
+            }
         }
         else {
             // for each task:

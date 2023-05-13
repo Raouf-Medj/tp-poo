@@ -37,6 +37,11 @@
                   <MenuItem mnemonicParsing="false" onAction="#gotoProjects" text="Projects" />
                   <MenuItem mnemonicParsing="false" onAction="#gotoStatistics" text="Statistics" />
                </items></Menu>
+            <Menu mnemonicParsing="false" text="Settings">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#changeMinTaskDuration" text="Change Min. Task Duration" />
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" onAction="#logout" text="Logout">
                <items>
                   <MenuItem mnemonicParsing="false" text="Logout" />

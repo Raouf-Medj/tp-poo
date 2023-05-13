@@ -15,6 +15,7 @@ import model.users.Users;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ProjectsController {
@@ -73,8 +74,22 @@ public class ProjectsController {
     }
 
     @FXML
-    void viewToday(ActionEvent event) {
+    void viewToday(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/dayView.fxml"));
+        Parent root = loader.load();
 
+        DayViewController controller = loader.getController();
+        controller.setModel(calendarModel, LocalDate.now());
+        controller.setUsersModel(usersModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : TodayView");
+        currentStage.setResizable(false);
+        controller.setCurrentStage(currentStage);
+        currentStage.show();
     }
 
     @FXML

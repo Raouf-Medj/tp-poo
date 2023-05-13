@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.TreeSet;
 
@@ -23,11 +24,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import model.users.Users;
 
 
 public class DayViewController {
     private Day model;
     private Task selectedTask=null;
+    private Stage currentStage;
+    private Calendar calendarModel;
+    private Users usersModel;
 
     public void setSelectedTask(Task selectedTask) {
         this.selectedTask = selectedTask;
@@ -60,38 +65,60 @@ public class DayViewController {
     private MenuBar menuBar;
 
     @FXML
-    void gotoProjects(ActionEvent event) {
+    void gotoProjects(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/projects.fxml"));
+        Parent root = loader.load();
 
+        ProjectsController controller = loader.getController();
+        controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        controller.setCurrentStage(currentStage);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Projects");
+        currentStage.setResizable(false);
+        currentStage.show();
     }
 
     @FXML
-    void gotoStatistics(ActionEvent event) {
+    void gotoStatistics(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/statistics.fxml"));
+        Parent root = loader.load();
 
+        StatisticsController controller = loader.getController();
+        controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        controller.setCurrentStage(currentStage);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Statistics");
+        currentStage.setResizable(false);
+        currentStage.show();
     }
 
     @FXML
-    void logout(ActionEvent event) {
+    void viewDashboard(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/dashboard.fxml"));
+        Parent root = loader.load();
 
-    }
+        DashboardController controller = loader.getController();
+        controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
+        // other models
 
-    @FXML
-    void newPlanning(ActionEvent event) {
-
-    }
-
-    @FXML
-    void newProject(ActionEvent event) {
-
-    }
-
-    @FXML
-    void newTask(ActionEvent event) {
-
-    }
-
-    @FXML
-    void viewDashboard(ActionEvent event) {
-
+        Scene scene = new Scene(root);
+        controller.setCurrentStage(currentStage);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Dashboard");
+        currentStage.setResizable(false);
+        currentStage.show();
     }
 
 
@@ -100,8 +127,22 @@ public class DayViewController {
 
 
     @FXML
-    void viewToday(ActionEvent event) {
+    void viewToday(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/dayView.fxml"));
+        Parent root = loader.load();
 
+        DayViewController controller = loader.getController();
+        controller.setModel(calendarModel, LocalDate.now());
+        controller.setUsersModel(usersModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : TodayView");
+        currentStage.setResizable(false);
+        controller.setCurrentStage(currentStage);
+        currentStage.show();
     }
 
     @FXML
@@ -110,7 +151,7 @@ public class DayViewController {
 
 
     public void setModel(Calendar calendar, LocalDate currentDate) {
-
+        calendarModel = calendar;
         this.model=calendar.getDay(currentDate);
         if (model == null){
             model= new Day(currentDate);
@@ -197,5 +238,13 @@ public class DayViewController {
                 comment.setStyle("-fx-text-fill: Black;");
             }
         }
+    }
+
+    public void setCurrentStage(Stage currentStage) {
+        this.currentStage = currentStage;
+    }
+
+    public void setUsersModel(Users usersModel) {
+        this.usersModel = usersModel;
     }
 }
