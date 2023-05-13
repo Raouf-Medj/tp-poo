@@ -3,21 +3,31 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
+import model.*;
 import model.users.Users;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ProjectsController {
     private Stage currentStage;
     private Users usersModel;
+    private Calendar calendarModel;
     // other models
 
     @FXML
     private MenuBar menuBar;
+
+    @FXML
+    private ListView<Project> projectsList;
 
     @FXML
     void viewDashboard(ActionEvent event) throws IOException{
@@ -27,6 +37,7 @@ public class ProjectsController {
 
         DashboardController controller = loader.getController();
         controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
         // other models
 
         Scene scene = new Scene(root);
@@ -50,6 +61,7 @@ public class ProjectsController {
 
         StatisticsController controller = loader.getController();
         controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
         // other models
 
         Scene scene = new Scene(root);
@@ -61,28 +73,35 @@ public class ProjectsController {
     }
 
     @FXML
-    void logout(ActionEvent event) {
-
-    }
-
-    @FXML
-    void newPlanning(ActionEvent event) {
-
-    }
-
-    @FXML
-    void newProject(ActionEvent event) {
-
-    }
-
-    @FXML
-    void newTask(ActionEvent event) {
-
-    }
-
-    @FXML
     void viewToday(ActionEvent event) {
 
+    }
+
+    @FXML
+    void gotoSelected(ActionEvent event) {
+        Project selectedProject = projectsList.getSelectionModel().getSelectedItem();
+
+        System.out.println(selectedProject);
+        // redirect to projectView
+    }
+
+    @FXML
+    void createNew(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/addproject.fxml"));
+        Parent root = loader.load();
+
+        AddController controller = loader.getController();
+        controller.setCalendarModel(calendarModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Add a new project");
+        newStage.setResizable(false);
+        controller.setCurrentStage(newStage);
+        newStage.show();
     }
 
     public void setCurrentStage(Stage currentStage) {
@@ -91,5 +110,12 @@ public class ProjectsController {
 
     public void setUsersModel(Users usersModel) {
         this.usersModel = usersModel;
+    }
+
+    public void setCalendarModel(Calendar calendarModel) {
+        this.calendarModel = calendarModel;
+
+        projectsList.setItems(calendarModel.getProjects());
+        projectsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 }

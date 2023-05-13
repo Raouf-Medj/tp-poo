@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Calendar calendar = new Calendar();
+    /*    Calendar calendar = new Calendar();
         Category category = new Category("yes","infrared");
         Day day = new Day(LocalDate.of(2023,5,12));
         Task task1 = new SimpleTask("task1",category,Priority.HIGH, LocalDateTime.of(2023,12,12,17,30), Duration.ofMinutes(60),0);
@@ -31,13 +31,13 @@ public class Main extends Application {
         calendar.addDay(day);
         day.showDay();
 
-/*        Users users = new Users();
-        users.getUsers().put("", new User("", ""));*/
+*//*        Users users = new Users();
+        users.getUsers().put("", new User("", ""));*//*
 
-/*        Login login = new Login(users);
-        login.show();*/
+*//*        Login login = new Login(users);
+        login.show();*//*
         DayView dayView = new DayView( calendar,LocalDate.of(2023,5,12));
-        dayView.show();
+        dayView.show();*/
     }
 
 

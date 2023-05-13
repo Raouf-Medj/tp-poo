@@ -46,4 +46,10 @@ public class Planning {
     public TreeMap<LocalDate, Day> getDays() {
         return days;
     }
+    @Override
+    public String toString() {
+        return startDay.toString()+" -> "+endDay.toString();
+    }
+
+
 }

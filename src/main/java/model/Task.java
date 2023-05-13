@@ -23,8 +23,15 @@ abstract public class Task implements Comparable<Task>{
     private LocalDateTime deadLine;
     private Duration duration;
     private Boolean unscheduled;
+    private Project project;
 
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
+    public Project getProject() {
+        return project;
+    }
 
     public Boolean getUnscheduled() {
         return unscheduled;

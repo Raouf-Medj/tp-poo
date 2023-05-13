@@ -9,9 +9,10 @@ public class Calendar {
     // each user is bonded with one calendar and vice-versa
     private User user;
     // a calendar should contains all plannings
-    private ArrayList<Planning> plannings = new ArrayList<>();
-    private TreeMap<LocalDate, Day> calendar = new TreeMap<>();
-    private List<Task> unscheduled = new ArrayList<>();
+    private final ArrayList<Planning> plannings = new ArrayList<>();
+    private final ObservableList<Project> projects = FXCollections.observableArrayList();
+    private final TreeMap<LocalDate, Day> calendar = new TreeMap<>();
+    private final ObservableList<Task> unscheduled = FXCollections.observableArrayList();
 
     // add a structure for tasks (scheduled and unscheduled)
 
@@ -51,8 +52,19 @@ public class Calendar {
     public void showCalendar() {
         for (Map.Entry<LocalDate, Day> entry : calendar.entrySet()) {
             System.out.println(entry.getKey() + " ->  " + entry.getValue());
-            entry.getValue().showDay();
         }
+    }
+
+    public ObservableList<Task> getUnscheduled() {
+        return unscheduled;
+    }
+
+    public ObservableList<Project> getProjects() {
+        return projects;
+    }
+
+    public ArrayList<Planning> getPlannings() {
+        return plannings;
     }
 
     public ArrayList<Task> fillPlanning(Planning planning, ArrayList<Task> tasks, Duration minimumZoneSize){
