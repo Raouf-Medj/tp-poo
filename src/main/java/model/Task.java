@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.*;
 
-abstract public class Task implements Comparable<Task>{
+abstract public class Task implements Comparable<Task>, Serializable {
 
     public Task(String name,Category category,Priority priority,LocalDateTime deadLine,Duration duration){
         this.name=name;

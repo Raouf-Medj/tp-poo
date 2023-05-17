@@ -1,12 +1,14 @@
 package model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 
-public class FreeZone implements Comparable<FreeZone> {
+public class FreeZone implements Comparable<FreeZone>, Serializable {
     private LocalTime startTime;
     private LocalTime endTime;
 

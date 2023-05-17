@@ -1,8 +1,9 @@
 package model.users;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Users {
+public class Users implements Serializable {
     private final HashMap<String, User> users = new HashMap<>();
     private User activeUser = null;
 

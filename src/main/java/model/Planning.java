@@ -1,11 +1,12 @@
 package model;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collections;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class Planning {
+public class Planning implements Serializable {
     private TreeMap<LocalDate, Day> days = new TreeMap<>();
     private LocalDate startDay;
     private LocalDate endDay;
@@ -51,5 +52,9 @@ public class Planning {
         return startDay.toString()+" -> "+endDay.toString();
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        Planning o = (Planning) obj;
+        return (o.startDay.equals(startDay) && o.endDay.equals(endDay));
+    }
 }

@@ -142,7 +142,8 @@ public class AddController implements Initializable {
         }
         else {
             newPlanning = new Planning(start, end, calendarModel);
-            calendarModel.addPlanning(newPlanning);
+            Planning p = calendarModel.addPlanning(newPlanning);
+            if (p !=  null) newPlanning = p;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/addfreezones.fxml"));
             Parent root = loader.load();
@@ -183,7 +184,7 @@ public class AddController implements Initializable {
         }
         if (!stop) {
             for (Map.Entry<LocalDate, Day> e : newPlanning.getDays().entrySet()) {
-                if (e.getValue().getZonesNumber() ==  0) {
+                if (Day.isInsertable(e.getValue().getZones(), new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)))) {
                     e.getValue().insertZone(new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)));
                 }
                 else {
