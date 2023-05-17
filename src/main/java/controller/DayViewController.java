@@ -30,17 +30,45 @@ import model.users.Users;
 public class DayViewController {
     private Day model;
     private Task selectedTask=null;
+    private FreeZone selectedZone=null;
     private Stage currentStage;
     private Calendar calendarModel;
     private Users usersModel;
 
     public void setSelectedTask(Task selectedTask) {
         this.selectedTask = selectedTask;
-        selectedTaskName.setText(selectedTask.getName());
+        if(selectedTask!=null){
+            selectedTaskName.setText(selectedTask.getName());
+        }
+        else{
+            selectedTaskName.setText("Not Selected");
+        }
+    }
+
+    public void setSelectedZone(FreeZone zone){
+        this.selectedZone = zone;
+        selectedTimeSlot.setText("From "+zone.getStartTime().toString()+" to "+zone.getEndTime().toString());
     }
 
     private int numberOfTasks=0;
     private int numberOfDoneTasks=0;
+
+    @FXML
+    private Button unscheduleButton;
+
+    @FXML
+    private Button addNewTimeSlotButton;
+
+
+    @FXML
+    private Button removeTimeSlotButton;
+
+    @FXML
+    private Button scheduleTaskButton;
+
+
+    @FXML
+    private Label selectedTimeSlot;
 
     @FXML
     private VBox dayBox;
@@ -157,18 +185,18 @@ public class DayViewController {
             model= new Day(currentDate);
         }
         setCurrentDate(currentDate);
+        removeTimeSlotButton.setDisable(true);
         fillDayBox(model);
         selectedTaskName.setText("Not Selected");
+        selectedTimeSlot.setText("Not Selected");
         taskViewButton.setDisable(true);
+        unscheduleButton.setDisable(true);
 
     }
 
 
 
-    @FXML
-    void goToTask(ActionEvent event) {
-        System.out.println("went to task : "+selectedTaskName);
-    }
+
 
 
     public void fillDayBox(Day model){
@@ -204,11 +232,20 @@ public class DayViewController {
                 label.setText(((OccupiedZone) zn).getName());
                 label.setOnMouseClicked(event -> {
                     setSelectedTask(((OccupiedZone) zn).getTask());
-                    setSelectedTask(((OccupiedZone) zn).getTask());
+                    setSelectedZone(zn);
                     taskViewButton.setDisable(false);
+                    unscheduleButton.setDisable(false);
+                    removeTimeSlotButton.setDisable(false);
                 });
             }
             else{
+                label.setOnMouseClicked(event -> {
+                    setSelectedZone(zn);
+                    taskViewButton.setDisable(true);
+                    unscheduleButton.setDisable(true);
+                    removeTimeSlotButton.setDisable(false);
+                    setSelectedTask(null);
+                });
                 label.setBackground(backgroundBlue);
                 label.setText("Free Time");
             }
@@ -216,7 +253,6 @@ public class DayViewController {
 
         }
         setProgressState();
-
     }
 
     public void setProgressState(){
@@ -247,4 +283,35 @@ public class DayViewController {
     public void setUsersModel(Users usersModel) {
         this.usersModel = usersModel;
     }
+
+
+    @FXML
+    void addNewTimeSlot(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goToTask(ActionEvent event) {
+        System.out.println("went to task : "+selectedTaskName);
+    }
+
+
+    @FXML
+    void removeTimeSlot(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void scheduleTask(ActionEvent event) {
+
+    }
+
+    @FXML
+    void unscheduleTask(ActionEvent event) {
+
+    }
+
+
+
 }
