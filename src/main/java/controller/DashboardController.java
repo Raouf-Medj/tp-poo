@@ -406,7 +406,6 @@ public class DashboardController implements Initializable {
 //                        if(calendarActivities != null){
 //                            createCalendarActivity(calendarActivities, rectangleHeight, rectangleWidth, stackPane);
 //                        }
-
                     }
                     if(LocalDate.now().getYear() == toView.getYear() && LocalDate.now().getMonth() == toView.getMonth() && LocalDate.now().getDayOfMonth() == currentDate){
                         rectangle.setStroke(Color.DODGERBLUE);
