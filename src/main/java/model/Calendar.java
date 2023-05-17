@@ -16,6 +16,15 @@ public class Calendar {
     private final TreeMap<LocalDate, Day> calendar = new TreeMap<>();
     private final ObservableList<Task> unscheduled = FXCollections.observableArrayList();
     private Duration minDuration = Duration.ofMinutes(30);
+    private int nbCompletedToCongratulate = 3;
+
+    public int getNbCompletedToCongratulate() {
+        return nbCompletedToCongratulate;
+    }
+
+    public void setNbCompletedToCongratulate(int nbCompletedToCongratulate) {
+        this.nbCompletedToCongratulate = nbCompletedToCongratulate;
+    }
 
     public void setMinDuration(Duration minDuration) {
         this.minDuration = minDuration;

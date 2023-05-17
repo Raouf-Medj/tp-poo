@@ -55,6 +55,9 @@ public class DashboardController implements Initializable {
     @FXML
     private GridPane monthGrid;
 
+    @FXML
+    private Spinner<Integer> goalSpinner;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (month !=  null) {
@@ -298,7 +301,7 @@ public class DashboardController implements Initializable {
     @FXML
     void changeMinTaskDuration(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/changeMinTaskDuration.fxml"));
+        loader.setLocation(getClass().getResource("/view/changeSettings.fxml"));
         Parent root = loader.load();
 
         DashboardController controller = loader.getController();
@@ -309,7 +312,7 @@ public class DashboardController implements Initializable {
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
         newStage.setScene(scene);
-        newStage.setTitle("Settings: edit min. task duration");
+        newStage.setTitle("Settings");
         newStage.setResizable(false);
         controller.setCurrentStage(newStage);
         newStage.show();
@@ -321,12 +324,17 @@ public class DashboardController implements Initializable {
     @FXML
     void updateDuration(ActionEvent event) {
         calendarModel.setMinDuration(Duration.ofMinutes(minutesSpinner.getValue()));
+        calendarModel.setNbCompletedToCongratulate(goalSpinner.getValue());
         currentStage.close();
     }
 
     void initSpinner() {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 5);
+        valueFactory.setValue((int)calendarModel.getMinDuration().toMinutes());
         minutesSpinner.setValueFactory(valueFactory);
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
+        valueFactory2.setValue(calendarModel.getNbCompletedToCongratulate());
+        goalSpinner.setValueFactory(valueFactory2);
     }
 
     void drawCalendar() {
