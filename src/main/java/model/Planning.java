@@ -54,7 +54,22 @@ public class Planning implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Planning o = (Planning) obj;
-        return (o.startDay.equals(startDay) && o.endDay.equals(endDay));
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Planning other = (Planning) obj;
+
+        // Perform null checks for the fields being compared
+        if (startDay == null && other.startDay != null) {
+            return false;
+        }
+        if (startDay != null && !startDay.equals(other.startDay)) {
+            return false;
+        }
+
+        return true;
     }
 }
