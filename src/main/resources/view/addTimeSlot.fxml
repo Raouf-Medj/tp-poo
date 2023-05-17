@@ -8,14 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-   <bottom>
-      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addTimeSlot" text="Add" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="20.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddTimeSlotController">
    <center>
       <HBox prefHeight="126.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <children>
@@ -77,4 +70,16 @@
          </BorderPane.margin>
       </Label>
    </top>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addTimeSlot" prefHeight="7.0" prefWidth="50.0" text="Add">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="cancel" />
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

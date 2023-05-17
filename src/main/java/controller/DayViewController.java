@@ -3,13 +3,11 @@ package controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.skin.ProgressBarSkin;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import model.*;
 
 import java.io.IOException;
@@ -19,10 +17,8 @@ import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.users.Users;
 
@@ -183,7 +179,9 @@ public class DayViewController {
         this.model=calendar.getDay(currentDate);
         if (model == null){
             model= new Day(currentDate);
+            calendar.addDay(model);
         }
+
         setCurrentDate(currentDate);
         removeTimeSlotButton.setDisable(true);
         fillDayBox(model);
@@ -200,6 +198,7 @@ public class DayViewController {
 
 
     public void fillDayBox(Day model){
+        dayBox.getChildren().clear();
         TreeSet<FreeZone> zones = model.getZones();
         double originalPosition =0;
         for(FreeZone zn : zones){
@@ -286,8 +285,22 @@ public class DayViewController {
 
 
     @FXML
-    void addNewTimeSlot(ActionEvent event) {
+    void addNewTimeSlot(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/addTimeSlot.fxml"));
+        Parent root = fxmlLoader.load();
 
+        AddTimeSlotController addTimeSlotController = fxmlLoader.getController();
+        addTimeSlotController.setModel(calendarModel.getDay((model.getDate())),calendarModel,this);
+
+        Scene scene = new Scene(root);
+        Stage newStage= new Stage();
+
+        newStage.setScene(scene);
+        newStage.setTitle("Add new Time slot");
+        newStage.setResizable(false);
+        addTimeSlotController.setCurrentStage(newStage);
+        newStage.show();
     }
 
     @FXML
