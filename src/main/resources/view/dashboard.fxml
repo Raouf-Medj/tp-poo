@@ -39,7 +39,7 @@
                </items></Menu>
             <Menu mnemonicParsing="false" text="Settings">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#changeMinTaskDuration" text="Change Min. Task Duration" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeMinTaskDuration" text="Change settings" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" onAction="#logout" text="Logout">
