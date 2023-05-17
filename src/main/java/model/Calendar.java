@@ -3,7 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.users.User;
 
-import java.io.Serializable;
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
@@ -13,9 +13,9 @@ public class Calendar implements Serializable {
     private User user;
     // a calendar should contains all plannings
     private final ArrayList<Planning> plannings = new ArrayList<>();
-    private final transient ObservableList<Project> projects = FXCollections.observableArrayList();
+    private transient ObservableList<Project> projects = FXCollections.observableArrayList();
     private final TreeMap<LocalDate, Day> calendar = new TreeMap<>();
-    private final transient ObservableList<Task> unscheduled = FXCollections.observableArrayList();
+    private transient ObservableList<Task> unscheduled = FXCollections.observableArrayList();
     private Duration minDuration = Duration.ofMinutes(30);
     private int nbCompletedToCongratulate = 3;
 
@@ -117,6 +117,33 @@ public class Calendar implements Serializable {
         }
 
         return currentListUnscheduledTasks;
+    }
+
+    //-------------------{ util attributes }----------------------
+    private ArrayList<Project> projectsSave = new ArrayList<>();
+    private ArrayList<Task> unscheduledSave = new ArrayList<>();
+
+    public void setProjectsSave(ArrayList<Project> projectsSave) {
+        this.projectsSave = projectsSave;
+    }
+
+    public ArrayList<Project> getProjectsSave() {
+        return projectsSave;
+    }
+
+    public void setUnscheduledSave(ArrayList<Task> unscheduledSave) {
+        this.unscheduledSave = unscheduledSave;
+    }
+
+    public ArrayList<Task> getUnscheduledSave() {
+        return unscheduledSave;
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        projects = FXCollections.observableArrayList();
+        unscheduled = FXCollections.observableArrayList();
     }
 
 }

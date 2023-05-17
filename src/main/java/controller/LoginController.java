@@ -61,7 +61,10 @@ public class LoginController {
             if (u.isCorrectPassword(mdp)) {
                 u.setConnected(true);
                 model.setActiveUser(u);
-                if (u.getCalendarModel() ==  null) u.setCalendarModel(new Calendar()); //temp
+                if (u.getCalendarModel() ==  null) {
+                    System.out.println("this should only appear when you first create the user");
+                    u.setCalendarModel(new Calendar()); //temp
+                }
                 redirectToDashboard(event, u.getCalendarModel());
             }
             else {

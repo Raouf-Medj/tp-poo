@@ -173,8 +173,6 @@ public class DashboardController implements Initializable {
     @FXML
     void logout(ActionEvent event) throws IOException {
 
-        // stuff to do before changing the scene (saving models to a file + resetting activeUser to null)
-
         usersModel.setActiveUser(null);
 
         FXMLLoader loader = new FXMLLoader();
