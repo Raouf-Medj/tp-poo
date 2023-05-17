@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <Button mnemonicParsing="false" text="Add" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <center>
+      <HBox prefHeight="126.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="120.0" prefWidth="200.0">
+               <children>
+                  <Label text="Start Time" />
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="HH">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Spinner editable="true" prefHeight="26.0" prefWidth="53.0" />
+                        <Label text="MM">
+                           <HBox.margin>
+                              <Insets left="7.0" right="2.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Spinner editable="true" prefHeight="26.0" prefWidth="59.0" />
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="174.0" prefWidth="196.0">
+               <children>
+                  <Label text="End Time" />
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="HH">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Spinner editable="true" prefHeight="26.0" prefWidth="55.0" />
+                        <Label text="MM">
+                           <HBox.margin>
+                              <Insets left="7.0" right="2.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Spinner editable="true" prefHeight="26.0" prefWidth="60.0" />
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <Label text="Add new Time Slot" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+</BorderPane>
