@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ScheduleTaskController">
+   <left>
+      <ListView fx:id="taskList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <top>
+      <Label alignment="CENTER" prefHeight="18.0" prefWidth="198.0" text="Task List" BorderPane.alignment="TOP_LEFT">
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </Label>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="400.0">
+               <children>
+                  <CheckBox fx:id="setInsertionTimeCheck" mnemonicParsing="false" onAction="#setInsertionTime" text="Set exact insertion time : " />
+                  <Label text="HH" />
+                  <Spinner fx:id="setInsertionTimeHours" prefHeight="26.0" prefWidth="52.0" />
+                  <Label text="MM" />
+                  <Spinner fx:id="setInsertionTimeMinutes" layoutX="260.0" layoutY="47.0" prefHeight="26.0" prefWidth="52.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="400.0">
+               <children>
+                  <CheckBox fx:id="setDurationCheck" mnemonicParsing="false" onAction="#setDuration" text="Set exact duration : " />
+                  <Label text="HH" />
+                  <Spinner fx:id="setDurationHours" prefHeight="26.0" prefWidth="47.0" />
+                  <Label layoutX="248.0" layoutY="27.0" text="MM" />
+                  <Spinner fx:id="setDurationMinutes" layoutX="265.0" layoutY="22.0" prefHeight="26.0" prefWidth="51.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="193.0" prefHeight="50.0" prefWidth="400.0">
+               <children>
+                  <CheckBox fx:id="insertInZoneCheck" mnemonicParsing="false" onAction="#insertInZone" text="Insert in the preselected zone" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
+               <children>
+                  <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#addTask" text="Add Task" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="cancel">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

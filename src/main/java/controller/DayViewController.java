@@ -311,13 +311,44 @@ public class DayViewController {
 
     @FXML
     void removeTimeSlot(ActionEvent event) {
+        if(selectedZone instanceof OccupiedZone){
+            selectedTask.setUnscheduled(true);
+            calendarModel.getUnscheduled().add(selectedTask);
+            selectedTask=null;
+            model.removeZone(selectedZone);
+            removeTimeSlotButton.setDisable(true);
+            setSelectedTask(null);
+            selectedTimeSlot.setText("Not Selected");
+            selectedZone=null;
 
+            fillDayBox(model);
+        }else{
+            model.removeZone(selectedZone);
+            removeTimeSlotButton.setDisable(true);
+            selectedZone=null;
+            selectedTimeSlot.setText("Not Selected");
+            fillDayBox(model);
+        }
     }
 
 
     @FXML
-    void scheduleTask(ActionEvent event) {
+    void scheduleTask(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/scheduleTask.fxml"));
+        Parent root = fxmlLoader.load();
 
+        ScheduleTaskController scheduleTaskController = fxmlLoader.getController();
+        scheduleTaskController.setModel(calendarModel,calendarModel.getDay(model.getDate()),selectedZone);
+
+        Scene scene = new Scene(root);
+        Stage newStage= new Stage();
+
+        newStage.setScene(scene);
+        newStage.setTitle("Schedule a task");
+        newStage.setResizable(false);
+        scheduleTaskController.setCurrentStage(newStage);
+        newStage.show();
     }
 
     @FXML
