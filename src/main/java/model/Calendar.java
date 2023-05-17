@@ -3,18 +3,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.users.User;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Calendar {
+public class Calendar implements Serializable {
     // each user is bonded with one calendar and vice-versa
     private User user;
     // a calendar should contains all plannings
     private final ArrayList<Planning> plannings = new ArrayList<>();
-    private final ObservableList<Project> projects = FXCollections.observableArrayList();
+    private final transient ObservableList<Project> projects = FXCollections.observableArrayList();
     private final TreeMap<LocalDate, Day> calendar = new TreeMap<>();
-    private final ObservableList<Task> unscheduled = FXCollections.observableArrayList();
+    private final transient ObservableList<Task> unscheduled = FXCollections.observableArrayList();
     private Duration minDuration = Duration.ofMinutes(30);
     private int nbCompletedToCongratulate = 3;
 
@@ -41,22 +42,33 @@ public class Calendar {
         // can return null if the day doesn't exist in the tree (days)
         return calendar.getOrDefault(date, null);
     }
-    public void addPlanning(Planning planning) {
+    public Planning addPlanning(Planning planning) {
         Day day;
+        Planning toReturn = null;
         // plannings can override, so there are no restriction to how plannings are added
         if (!planning.getStartDay().isBefore(LocalDate.now()) && !planning.getEndDay().isBefore(planning.getStartDay())) {
-            for (LocalDate date = planning.getStartDay(); !date.isAfter(planning.getEndDay()); date = date.plusDays(1)) {
-                if (!calendar.containsKey(date)) {
-                    day = new Day(date);
-                    planning.addDay(day);
-                    addDay(day); //  add to the calendar
+            if (!plannings.contains(planning)) {
+                for (LocalDate date = planning.getStartDay(); !date.isAfter(planning.getEndDay()); date = date.plusDays(1)) {
+                    if (!calendar.containsKey(date)) {
+                        day = new Day(date);
+                        planning.addDay(day);
+                        addDay(day); //  add to the calendar
+                    }
+                    else planning.addDay(calendar.get(date));
                 }
-                else planning.addDay(calendar.get(date));
+                plannings.add(planning);
             }
-            plannings.add(planning);
-
+            else {
+                for (Planning p : plannings) {
+                    if (p.equals(planning)) toReturn = p;;
+                }
+            }
         }
-        else System.out.println("ERREUR: Période de planning invalide!");
+        else {
+            System.out.println("ERREUR: Période de planning invalide!");
+        }
+
+        return toReturn;
     }
     public void removePlanning(Planning planning) {
         // check whether the planning exists (using it's ID, and then removing it using the predefined method, must have a user validation before ...)

@@ -2,9 +2,10 @@ package model.users;
 
 import model.Calendar;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     private String pseudo, mdp;
     private boolean connected;
     private Calendar calendarModel = null;

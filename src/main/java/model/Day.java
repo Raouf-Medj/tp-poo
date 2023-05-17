@@ -1,12 +1,14 @@
 package model;
 
+import java.io.NotSerializableException;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-public class Day implements Comparable<Day> {
+public class Day implements Comparable<Day>, Serializable {
     private static LocalTime[] timeInterval = {LocalTime.of(0, 0), LocalTime.of(23, 59)};
     private TreeSet<FreeZone> zones = new TreeSet<>(); // insertion et suppression de zones
     private DayOfWeek dayOfWeek;
@@ -161,6 +163,7 @@ public class Day implements Comparable<Day> {
             }
             else System.out.println("ERREUR: insertion impossible!");
         }
+        fuseZones();
     }
     public void removeZone(FreeZone zone) {
         LocalTime start = zone.getStartTime();
@@ -184,7 +187,7 @@ public class Day implements Comparable<Day> {
     }
 
 
-    static boolean isInsertable(Iterable<FreeZone> c, FreeZone toInsert) {
+    public static boolean isInsertable(Iterable<FreeZone> c, FreeZone toInsert) {
         LocalTime start = toInsert.getStartTime();
         LocalTime end = toInsert.getEndTime();
         boolean stop = false;
