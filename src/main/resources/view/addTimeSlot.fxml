@@ -8,10 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <Button mnemonicParsing="false" text="Add" BorderPane.alignment="CENTER">
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addTimeSlot" text="Add" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" />
          </BorderPane.margin>
@@ -30,13 +29,13 @@
                               <Insets right="2.0" />
                            </HBox.margin>
                         </Label>
-                        <Spinner editable="true" prefHeight="26.0" prefWidth="53.0" />
+                        <Spinner fx:id="startTimeHour" editable="true" prefHeight="26.0" prefWidth="53.0" />
                         <Label text="MM">
                            <HBox.margin>
                               <Insets left="7.0" right="2.0" />
                            </HBox.margin>
                         </Label>
-                        <Spinner editable="true" prefHeight="26.0" prefWidth="59.0" />
+                        <Spinner fx:id="startTimeMinute" editable="true" prefHeight="26.0" prefWidth="59.0" />
                      </children>
                      <padding>
                         <Insets top="20.0" />
@@ -54,13 +53,13 @@
                               <Insets right="2.0" />
                            </HBox.margin>
                         </Label>
-                        <Spinner editable="true" prefHeight="26.0" prefWidth="55.0" />
+                        <Spinner fx:id="endTimeHour" editable="true" prefHeight="26.0" prefWidth="55.0" />
                         <Label text="MM">
                            <HBox.margin>
                               <Insets left="7.0" right="2.0" />
                            </HBox.margin>
                         </Label>
-                        <Spinner editable="true" prefHeight="26.0" prefWidth="60.0" />
+                        <Spinner fx:id="endTimeMinute" editable="true" prefHeight="26.0" prefWidth="60.0" />
                      </children>
                      <padding>
                         <Insets top="20.0" />
