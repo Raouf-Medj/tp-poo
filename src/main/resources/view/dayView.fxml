@@ -90,11 +90,11 @@
             <GridPane prefHeight="758.0" prefWidth="986.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="413.5999816894531" minHeight="10.0" prefHeight="179.99999084472654" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="359.20000915527345" minHeight="10.0" prefHeight="259.20000915527345" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="359.20000915527345" minHeight="10.0" prefHeight="259.20000915527345" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="currentDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="392.0" style="-fx-background-color: #d9d9d9;" text="Actual Date">
@@ -118,6 +118,47 @@
                            </font>
                         </Label>
                         <Button fx:id="taskViewButton" mnemonicParsing="false" onAction="#goToTask" prefHeight="38.0" prefWidth="107.0" text="More details" />
+                        <Button fx:id="taskViewButton1" layoutX="204.0" layoutY="199.0" mnemonicParsing="false" onAction="#goToTask" prefHeight="38.0" prefWidth="107.0" text="Unschedule">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="Selected Time slot : ">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="selectedTaskName1" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="219.0" style="-fx-background-color: #aaaaaa;" text="Label" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="204.0" text="Remove selected time slot">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="198.0" text="Add new time slot">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="202.0" text="Schedule a task">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children>
