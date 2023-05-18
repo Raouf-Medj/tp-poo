@@ -27,6 +27,32 @@ public class Calendar implements Serializable {
         return badges;
     }
 
+    public Planning getCurrentPlanning() {
+        for (Planning planning : plannings) {
+            if (planning.getDays().containsKey(LocalDate.now())) return planning;
+        }
+        return null;
+    }
+
+    public Map<String, Integer> getCategories() {
+        Map<String, Integer> map = new HashMap<>();
+        for (Map.Entry<LocalDate, Day> e : calendar.entrySet()) {
+            Day day = e.getValue();
+            for (FreeZone zone : day.getZones()) {
+                if (zone instanceof OccupiedZone) {
+                    Task task = ((OccupiedZone) zone).getTask();
+                    if (!map.containsKey(task.getCategory().toString())) {
+                        map.put(task.getCategory().toString(), 1);
+                    }
+                    else {
+                        map.put(task.getCategory().toString(), map.get(task.getCategory().toString())+1);
+                    }
+                }
+            }
+        }
+        return map;
+    }
+
     public int getNbCompletedToCongratulate() {
         return nbCompletedToCongratulate;
     }

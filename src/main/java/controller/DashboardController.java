@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -28,6 +29,8 @@ import java.nio.file.FileSystemAlreadyExistsException;
 import java.time.*;
 
 import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -105,6 +108,13 @@ public class DashboardController implements Initializable {
                     }
                 }
             });
+
+            if (!calendarModel.getBadges().isEmpty()) {
+                Collections.sort(calendarModel.getBadges());
+                badge.setImage(new Image("/"+calendarModel.getBadges().get(calendarModel.getBadges().size()-1).toString()+".png"));
+                badge.setFitWidth(42);
+                badge.setPreserveRatio(true);
+            }
         }
     }
 
@@ -145,6 +155,7 @@ public class DashboardController implements Initializable {
         StatisticsController controller = loader.getController();
         controller.setUsersModel(usersModel);
         controller.setCalendarModel(calendarModel);
+        controller.init();
         // other models
 
         Scene scene = new Scene(root);

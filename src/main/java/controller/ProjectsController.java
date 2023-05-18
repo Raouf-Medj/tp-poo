@@ -75,6 +75,7 @@ public class ProjectsController {
         StatisticsController controller = loader.getController();
         controller.setUsersModel(usersModel);
         controller.setCalendarModel(calendarModel);
+        controller.init();
         // other models
 
         Scene scene = new Scene(root);
@@ -165,7 +166,7 @@ public class ProjectsController {
         if (projectName !=  null) {
             projectName.setText(currentProject.toString());
             projectDesc.setText(currentProject.getDescription());
-            progressPourcentage.setText(""+currentProject.getProgress()*100);
+            progressPourcentage.setText(""+((int) currentProject.getProgress()*100));
             progressBar.setProgress(currentProject.getProgress());
         }
     }

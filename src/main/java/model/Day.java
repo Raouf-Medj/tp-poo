@@ -17,6 +17,15 @@ public class Day implements Comparable<Day>, Serializable {
     private TreeSet<FreeZone> zones = new TreeSet<>(); // insertion et suppression de zones
     private DayOfWeek dayOfWeek;
     private LocalDate date;
+    private boolean goalAchieved = false;
+
+    public void setGoalAchieved(boolean goalAchieved) {
+        this.goalAchieved = goalAchieved;
+    }
+
+    public boolean isGoalAchieved() {
+        return goalAchieved;
+    }
 
     public Day(LocalDate date) {
         dayOfWeek = date.getDayOfWeek();
