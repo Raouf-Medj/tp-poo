@@ -114,6 +114,7 @@ public class DayViewController {
         StatisticsController controller = loader.getController();
         controller.setUsersModel(usersModel);
         controller.setCalendarModel(calendarModel);
+        controller.init();
         // other models
 
         Scene scene = new Scene(root);

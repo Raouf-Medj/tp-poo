@@ -6,8 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -78,45 +76,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <HBox fx:id="badges" alignment="CENTER_LEFT" prefHeight="103.0" prefWidth="756.0" spacing="30.0">
-                     <children>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../good.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../good.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="90.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../good.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="170.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../verygood.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="250.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../verygood.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="330.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../verygood.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="410.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../excellent.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
+                  <HBox fx:id="badges" alignment="CENTER_LEFT" prefHeight="103.0" prefWidth="756.0" spacing="30.0" />
                </children>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" top="40.0" />
