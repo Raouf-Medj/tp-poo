@@ -1,8 +1,11 @@
 package model.users;
 
+import model.Badge;
 import model.Calendar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -46,9 +49,4 @@ public class User implements Serializable {
     public void setCalendarModel(Calendar calendarModel) {
         this.calendarModel = calendarModel;
     }
-
-    //    @Override
-//    public int hashCode() {
-//        return Objects.hash(pseudo, mdp, connected);
-//    }
 }

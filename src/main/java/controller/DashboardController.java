@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
@@ -57,6 +58,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     private Spinner<Integer> goalSpinner;
+
+    @FXML
+    private ImageView badge;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

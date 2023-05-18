@@ -18,6 +18,11 @@ public class Calendar implements Serializable {
     private transient ObservableList<Task> unscheduled = FXCollections.observableArrayList();
     private Duration minDuration = Duration.ofMinutes(30);
     private int nbCompletedToCongratulate = 3;
+    private final List<Badge> badges = new ArrayList<>();
+
+    public List<Badge> getBadges() {
+        return badges;
+    }
 
     public int getNbCompletedToCongratulate() {
         return nbCompletedToCongratulate;
