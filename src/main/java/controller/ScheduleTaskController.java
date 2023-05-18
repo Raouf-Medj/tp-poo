@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class ScheduleTaskController implements Initializable {
@@ -57,9 +59,14 @@ public class ScheduleTaskController implements Initializable {
 
         insertInZoneCheck.setOnAction(event -> {
             if (insertInZoneCheck.isSelected()) {
-                // Perform actions when the CheckBox is checked
+                setDurationCheck.setDisable(true);
+                setDurationHours.setDisable(true);
+                setDurationMinutes.setDisable(true);
+                setInsertionTimeCheck.setDisable(true);
+                setInsertionTimeHours.setDisable(true);
+                setInsertionTimeMinutes.setDisable(true);
             } else {
-                // Perform actions when the CheckBox is unchecked
+                addTaskButton.setDisable(true);
             }
         });
 
@@ -173,12 +180,42 @@ public class ScheduleTaskController implements Initializable {
 
     @FXML
     void addTask(ActionEvent event) {
-        if(selectedTask instanceof SimpleTask){
-
+        if(insertInZoneCheck.isSelected() && selectedZone != null){
+            day.appendTask(selectedTask,calendar.getMinDuration(),selectedZone);
         }
-        else if (selectedTask instanceof  ComplexTask){
+        else{
+            if(selectedTask instanceof SimpleTask){
+                if(setInsertionTimeCheck.isSelected()){
+                    day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()));
+                }
+                else{
+                    day.appendTask(selectedTask,calendar.getMinDuration());
+                }
+            }
+            else{
+                if(setInsertionTimeCheck.isSelected()){
+                    if(setDurationCheck.isSelected()){
+                        day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()), Duration.ofMinutes(setDurationHours.getValue()*60+setDurationMinutes.getValue()));
+                    }
+                    else{
+                        day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()));
+                    }
+                }
+                else{
+                    if(setDurationCheck.isSelected()){
+                        day.appendTask(selectedTask,calendar.getMinDuration(),  Duration.ofMinutes(setDurationHours.getValue()*60+setDurationMinutes.getValue()));
+                    }
+                    else{
+                        day.appendTask(selectedTask,calendar.getMinDuration());
+                    }
 
+                }
+            }
         }
+        if(!selectedTask.getUnscheduled()){
+            calendar.getUnscheduled().remove(selectedTask);
+        }
+        currentStage.close();
     }
 
     @FXML
