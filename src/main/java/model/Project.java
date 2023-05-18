@@ -21,4 +21,16 @@ public class Project implements Serializable {
     public String toString() {
         return name;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getProgress() {
+        double progress = 0.6;
+
+        // calculate progress: [0, 1]
+
+        return progress;
+    }
 }

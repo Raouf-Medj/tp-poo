@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
@@ -57,6 +58,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     private Spinner<Integer> goalSpinner;
+
+    @FXML
+    private ImageView badge;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -406,7 +410,6 @@ public class DashboardController implements Initializable {
 //                        if(calendarActivities != null){
 //                            createCalendarActivity(calendarActivities, rectangleHeight, rectangleWidth, stackPane);
 //                        }
-
                     }
                     if(LocalDate.now().getYear() == toView.getYear() && LocalDate.now().getMonth() == toView.getMonth() && LocalDate.now().getDayOfMonth() == currentDate){
                         rectangle.setStroke(Color.DODGERBLUE);

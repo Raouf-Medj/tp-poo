@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <menus>
@@ -72,7 +72,7 @@
                               <Font size="26.0" />
                            </font>
                         </Label>
-                                <ImageView fitHeight="42.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" />
+                                <ImageView fx:id="badge" fitHeight="42.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="263.0" spacing="20.0" style="-fx-background-color: #E3E1E1; -fx-background-radius: 20;">

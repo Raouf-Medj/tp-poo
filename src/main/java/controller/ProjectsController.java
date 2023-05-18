@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
 import model.users.Users;
@@ -16,16 +14,30 @@ import model.users.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ProjectsController {
     private Stage currentStage;
     private Users usersModel;
     private Calendar calendarModel;
+    private Project currentProject;
     // other models
 
     @FXML
     private MenuBar menuBar;
+
+    @FXML
+    private Label progressPourcentage;
+
+    @FXML
+    private ProgressBar progressBar;
+
+    @FXML
+    private Label projectDesc;
+
+    @FXML
+    private Label projectName;
 
     @FXML
     private ListView<Project> projectsList;
@@ -93,11 +105,26 @@ public class ProjectsController {
     }
 
     @FXML
-    void gotoSelected(ActionEvent event) {
+    void gotoSelected(ActionEvent event) throws IOException{
         Project selectedProject = projectsList.getSelectionModel().getSelectedItem();
 
         System.out.println(selectedProject);
-        // redirect to projectView
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/projectView.fxml"));
+        Parent root = loader.load();
+
+        ProjectsController controller = loader.getController();
+        controller.setUsersModel(usersModel);
+        controller.setCurrentProject(selectedProject);
+        controller.setCalendarModel(calendarModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        controller.setCurrentStage(currentStage);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : ProjectView");
+        currentStage.setResizable(false);
+        currentStage.show();
     }
 
     @FXML
@@ -130,7 +157,20 @@ public class ProjectsController {
     public void setCalendarModel(Calendar calendarModel) {
         this.calendarModel = calendarModel;
 
-        projectsList.setItems(calendarModel.getProjects());
-        projectsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        if (projectsList !=  null) {
+            projectsList.setItems(calendarModel.getProjects());
+            projectsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        }
+
+        if (projectName !=  null) {
+            projectName.setText(currentProject.toString());
+            projectDesc.setText(currentProject.getDescription());
+            progressPourcentage.setText(""+currentProject.getProgress()*100);
+            progressBar.setProgress(currentProject.getProgress());
+        }
+    }
+
+    public void setCurrentProject(Project currentProject) {
+        this.currentProject = currentProject;
     }
 }

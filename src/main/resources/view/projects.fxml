@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectsController">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <menus>
@@ -54,11 +54,20 @@
                </children>
             </HBox>
             <ListView fx:id="projectsList" prefHeight="483.0" prefWidth="1300.0" />
-            <Button mnemonicParsing="false" onAction="#gotoSelected" text="Go to selected project">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="900.0" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#gotoSelected" text="Go to selected project">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewDashboard" text="Go to dashboard">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets left="200.0" right="200.0" />
