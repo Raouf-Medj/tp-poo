@@ -53,7 +53,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </Label>
-            <PieChart prefHeight="396.0" prefWidth="244.0" />
+            <PieChart fx:id="pieChart" prefHeight="396.0" prefWidth="244.0" />
          </children>
       </VBox>
    </right>
@@ -132,9 +132,9 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label text="XX">
+                  <Label fx:id="avgProd" text="XX">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                   <Label text="\%">
@@ -160,7 +160,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label text="XX">
+                  <Label fx:id="nbStreaks" text="XX">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -180,7 +180,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label text="DD/MM/YYYY">
+                  <Label fx:id="bestDay" text="DD/MM/YYYY">
                      <font>
                         <Font size="20.0" />
                      </font>

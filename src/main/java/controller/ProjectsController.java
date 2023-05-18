@@ -165,7 +165,7 @@ public class ProjectsController {
         if (projectName !=  null) {
             projectName.setText(currentProject.toString());
             projectDesc.setText(currentProject.getDescription());
-            progressPourcentage.setText(""+currentProject.getProgress()*100);
+            progressPourcentage.setText(""+((int) currentProject.getProgress()*100));
             progressBar.setProgress(currentProject.getProgress());
         }
     }

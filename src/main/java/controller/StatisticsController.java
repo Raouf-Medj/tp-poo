@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Calendar;
 import model.users.*;
@@ -20,7 +23,22 @@ public class StatisticsController {
     // other models
 
     @FXML
+    private Label avgProd;
+
+    @FXML
+    private HBox badges;
+
+    @FXML
+    private Label bestDay;
+
+    @FXML
     private MenuBar menuBar;
+
+    @FXML
+    private Label nbStreaks;
+
+    @FXML
+    private PieChart pieChart;
 
     @FXML
     void viewDashboard(ActionEvent event) throws IOException{
@@ -102,6 +120,11 @@ public class StatisticsController {
         currentStage.setResizable(false);
         controller.setCurrentStage(currentStage);
         currentStage.show();
+    }
+
+    public void init() {
+        // initialize all labels and HBox and pie chart
+        // add listeners
     }
 
     public void setCurrentStage(Stage currentStage) {
