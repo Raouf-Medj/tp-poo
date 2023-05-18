@@ -20,6 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Exceptions.BeyondDeadlineException;
+import model.Exceptions.NotFitInDayExeception;
+import model.Exceptions.NotFitInZoneException;
 import model.users.Users;
 
 
@@ -48,6 +51,20 @@ public class DayViewController {
 
     private int numberOfTasks=0;
     private int numberOfDoneTasks=0;
+
+    @FXML
+    private Label status;
+
+    public void setStatus(String status,Boolean exception) {
+        if(!exception){
+            this.status.setTextFill(Color.GREEN);
+            this.status.setText("Oll Korrect !");
+        }
+        else {
+            this.status.setText(status);
+            this.status.setTextFill(Color.RED);
+        }
+    }
 
     @FXML
     private Button unscheduleButton;
@@ -189,10 +206,12 @@ public class DayViewController {
         unscheduleButton.setDisable(true);
         state.getItems().addAll(State.values());
         state.setDisable(true);
+        saveStateButton.setDisable(true);
         priority.setText(" -- ");
         category.setText(" -- ");
         deadline.setText(" -- ");
         duration.setText(" -- ");
+        setStatus("Oll Korrect",false);
 
     }
 
@@ -239,6 +258,7 @@ public class DayViewController {
                     unscheduleButton.setDisable(false);
                     state.setDisable(false);
                     state.setValue(selectedTask.getState());
+                    saveStateButton.setDisable(false);
                     removeTimeSlotButton.setDisable(false);
                     priority.setText(selectedTask.getPriority().toString());
                     category.setText(selectedTask.getCategory().toString());
@@ -253,6 +273,7 @@ public class DayViewController {
                     removeTimeSlotButton.setDisable(false);
                     setSelectedTask(null);
                     state.setDisable(true);
+                    saveStateButton.setDisable(true);
                     priority.setText(" -- ");
                     category.setText(" -- ");
                     deadline.setText(" -- ");
@@ -342,7 +363,15 @@ public class DayViewController {
     @FXML
     void removeTimeSlot(ActionEvent event) {
         if(selectedZone instanceof OccupiedZone){
-            model.unAppendTask(selectedTask);
+            try {
+                model.unAppendTask(selectedTask);
+            }catch(BeyondDeadlineException e){
+                setStatus(e.getMessage(),true);
+            }catch(NotFitInDayExeception e){
+                setStatus(e.getMessage(),true);
+            }catch(NotFitInZoneException e){
+                setStatus(e.getMessage(),true);
+            }
             calendarModel.getUnscheduled().add(selectedTask);
             selectedTask=null;
             model.removeZone(selectedZone);
@@ -384,7 +413,15 @@ public class DayViewController {
 
     @FXML
     void unscheduleTask(ActionEvent event) {
-        model.unAppendTask(selectedTask);
+        try {
+            model.unAppendTask(selectedTask);
+        }catch(BeyondDeadlineException e){
+            setStatus(e.getMessage(),true);
+        }catch(NotFitInDayExeception e){
+            setStatus(e.getMessage(),true);
+        }catch(NotFitInZoneException e){
+            setStatus(e.getMessage(),true);
+        }
         calendarModel.getUnscheduled().add(selectedTask);
         fillDayBox(model);
         numberOfTasks--;

@@ -8,6 +8,9 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import model.Calendar;
 import model.Day;
+import model.Exceptions.BeyondDeadlineException;
+import model.Exceptions.NotFitInDayExeception;
+import model.Exceptions.NotFitInZoneException;
 import model.FreeZone;
 
 import java.time.Duration;
@@ -88,7 +91,16 @@ public class AddTimeSlotController {
         Duration duration = Duration.between(LocalTime.of(startTimeHour.getValue(),startTimeMinute.getValue()),LocalTime.of(endTimeHour.getValue(),endTimeMinute.getValue()));
         if(!duration.isNegative() && duration.compareTo(calendarModel.getMinDuration())>=0){
             FreeZone zone = new FreeZone(LocalTime.of(startTimeHour.getValue(),startTimeMinute.getValue()),LocalTime.of(endTimeHour.getValue(),endTimeMinute.getValue()));
-            model.insertZone(zone);
+            try{
+                model.insertZone(zone);
+                dayViewController.setStatus("Zone Inserted Successfully",false);
+            }catch(BeyondDeadlineException e){
+                dayViewController.setStatus(e.getMessage(),true);
+            }catch(NotFitInDayExeception e){
+                dayViewController.setStatus(e.getMessage(),true);
+            }catch(NotFitInZoneException e){
+                dayViewController.setStatus(e.getMessage(),true);
+            }
             currentStage.close();
             dayViewController.fillDayBox(model);
         }

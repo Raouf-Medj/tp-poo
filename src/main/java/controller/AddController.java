@@ -23,6 +23,9 @@ import java.util.*;
 import java.time.*;
 import javafx.scene.layout.VBox;
 import model.Calendar;
+import model.Exceptions.BeyondDeadlineException;
+import model.Exceptions.NotFitInDayExeception;
+import model.Exceptions.NotFitInZoneException;
 
 public class AddController implements Initializable {
     private Stage currentStage;
@@ -185,7 +188,16 @@ public class AddController implements Initializable {
         if (!stop) {
             for (Map.Entry<LocalDate, Day> e : newPlanning.getDays().entrySet()) {
                 if (Day.isInsertable(e.getValue().getZones(), new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)))) {
-                    e.getValue().insertZone(new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)));
+                    try{
+                        e.getValue().insertZone(new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)));
+                    }catch(BeyondDeadlineException ex){
+
+                    }catch(NotFitInDayExeception ex){
+
+                    }catch(NotFitInZoneException ex){
+
+                    }
+
                 }
                 else {
                     //ask the user if he wants to change the freezones of the day (extention?), but dont delete existing planned tasks!! (if time)
