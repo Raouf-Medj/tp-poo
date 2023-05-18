@@ -12,6 +12,8 @@ import model.users.User;
 import model.users.Users;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Main extends Application {
 
@@ -20,8 +22,10 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         Users users = loadData();
-        if (users ==  null) users = new Users();
-        users.getUsers().put("", new User("", ""));
+        if (users ==  null) {
+            users = new Users();
+            users.getUsers().put("", new User("", "")); // temp
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("login.fxml"));
@@ -63,6 +67,14 @@ public class Main extends Application {
 
     public void saveData(Users session) {
 
+        session.setActiveUser(null);
+
+        for (Map.Entry<String, User> e : session.getUsers().entrySet()) {
+            e.getValue().getCalendarModel().setProjectsSave(new ArrayList<>(e.getValue().getCalendarModel().getProjects()));
+            e.getValue().getCalendarModel().setUnscheduledSave(new ArrayList<>(e.getValue().getCalendarModel().getUnscheduled()));
+        }
+
+
         try {
             File save = new File(DATA_FILE);
             FileOutputStream fileOut = new FileOutputStream(save);
@@ -80,12 +92,18 @@ public class Main extends Application {
         File file = new File(DATA_FILE);
         if (file.exists()) {
             // Perform deserialization and retrieve data from the file
-            try (FileInputStream fileIn = new FileInputStream(DATA_FILE);
-                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            try {
+                FileInputStream fileIn = new FileInputStream(DATA_FILE);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
 
                 // Deserialize the data
                 save = (Users) in.readObject();
-            } catch (IOException | ClassNotFoundException e) {
+                for (Map.Entry<String, User> e : save.getUsers().entrySet()) {
+                    e.getValue().getCalendarModel().getProjects().addAll(e.getValue().getCalendarModel().getProjectsSave());
+                    e.getValue().getCalendarModel().getUnscheduled().addAll(e.getValue().getCalendarModel().getUnscheduledSave());
+                }
+            }
+            catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
