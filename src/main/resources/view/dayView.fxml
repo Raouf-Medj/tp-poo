@@ -199,8 +199,16 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="205.0" prefWidth="494.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="26.0" prefWidth="158.0" text="Scheduling status :" />
-                              <Label fx:id="status" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="494.0" text="Oll Korrect" />
+                              <Label alignment="CENTER" prefHeight="26.0" prefWidth="158.0" text="Schedule status :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="status" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="116.0" prefWidth="445.0" text="Oll Korrect" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </VBox>
                      </children>

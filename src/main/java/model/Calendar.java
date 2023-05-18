@@ -1,6 +1,9 @@
 package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Exceptions.BeyondDeadlineException;
+import model.Exceptions.NotFitInDayExeception;
+import model.Exceptions.NotFitInZoneException;
 import model.users.User;
 
 import java.io.*;
@@ -113,7 +116,16 @@ public class Calendar implements Serializable {
             currentDay = getDay(entry.getValue().getDate());
             for(Task tsk : currentListUnscheduledTasks){
                 if(tsk.getUnscheduled()){
-                    currentDay.appendTask(tsk,minimumZoneSize);
+                    try {
+                        currentDay.appendTask(tsk, minimumZoneSize);
+                    }catch(BeyondDeadlineException e){
+
+                    }catch(NotFitInZoneException e){
+
+                    }catch(NotFitInDayExeception e){
+
+                    }
+
                 }
                 if(currentDay.getDurationLeft().compareTo(minimumZoneSize)<=0){
                     break;

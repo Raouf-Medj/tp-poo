@@ -7,6 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
+import model.Exceptions.BeyondDeadlineException;
+import model.Exceptions.NotFitInDayExeception;
+import model.Exceptions.NotFitInZoneException;
 
 import java.net.URL;
 import java.time.Duration;
@@ -202,38 +205,48 @@ public class ScheduleTaskController implements Initializable {
 
     @FXML
     void addTask(ActionEvent event) {
-        if(insertInZoneCheck.isSelected() && selectedZone != null){
-            day.appendTask(selectedTask,calendar.getMinDuration(),selectedZone);
-        }
-        else{
-            if(selectedTask instanceof SimpleTask){
-                if(setInsertionTimeCheck.isSelected()){
-                    day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()));
-                }
-                else{
-                    day.appendTask(selectedTask,calendar.getMinDuration());
-                }
+        try{
+            if(insertInZoneCheck.isSelected() && selectedZone != null){
+                day.appendTask(selectedTask,calendar.getMinDuration(),selectedZone);
             }
             else{
-                if(setInsertionTimeCheck.isSelected()){
-                    if(setDurationCheck.isSelected()){
-                        day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()), Duration.ofMinutes(setDurationHours.getValue()*60+setDurationMinutes.getValue()));
-                    }
-                    else{
+                if(selectedTask instanceof SimpleTask){
+                    if(setInsertionTimeCheck.isSelected()){
                         day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()));
-                    }
-                }
-                else{
-                    if(setDurationCheck.isSelected()){
-                        day.appendTask(selectedTask,calendar.getMinDuration(),  Duration.ofMinutes(setDurationHours.getValue()*60+setDurationMinutes.getValue()));
                     }
                     else{
                         day.appendTask(selectedTask,calendar.getMinDuration());
                     }
+                }
+                else{
+                    if(setInsertionTimeCheck.isSelected()){
+                        if(setDurationCheck.isSelected()){
+                            day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()), Duration.ofMinutes(setDurationHours.getValue()*60+setDurationMinutes.getValue()));
+                        }
+                        else{
+                            day.appendTask(selectedTask,calendar.getMinDuration(), LocalTime.of(setInsertionTimeHours.getValue(),setInsertionTimeMinutes.getValue()));
+                        }
+                    }
+                    else{
+                        if(setDurationCheck.isSelected()){
+                            day.appendTask(selectedTask,calendar.getMinDuration(),  Duration.ofMinutes(setDurationHours.getValue()*60+setDurationMinutes.getValue()));
+                        }
+                        else{
+                            day.appendTask(selectedTask,calendar.getMinDuration());
+                        }
 
+                    }
                 }
             }
+            dayViewController.setStatus("Oll Korrect",false);
+        }catch(BeyondDeadlineException e){
+            dayViewController.setStatus(e.getMessage(),true);
+        }catch(NotFitInDayExeception e){
+            dayViewController.setStatus(e.getMessage(),true);
+        }catch(NotFitInZoneException e){
+            dayViewController.setStatus(e.getMessage(),true);
         }
+
         if(!selectedTask.getUnscheduled()){
             calendar.getUnscheduled().remove(selectedTask);
             dayViewController.incrementNumberOfTasks();

@@ -1,5 +1,9 @@
 package model;
 
+import model.Exceptions.BeyondDeadlineException;
+import model.Exceptions.NotFitInDayExeception;
+import model.Exceptions.NotFitInZoneException;
+
 import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.time.Duration;
@@ -143,7 +147,7 @@ public class Day implements Comparable<Day>, Serializable {
     public int compareTo(Day o) {
         return date.compareTo(o.date);
     }
-    public void insertZone(FreeZone zone) {
+    public void insertZone(FreeZone zone) throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         LocalTime start = zone.getStartTime();
         LocalTime end = zone.getEndTime();
 
@@ -155,15 +159,19 @@ public class Day implements Comparable<Day>, Serializable {
             while (iterator.hasNext() && !stop) {
                 z = iterator.next();
                 if ((start.isAfter(z.getStartTime()) && start.isBefore(z.getEndTime())) || (end.isAfter(z.getStartTime()) && end.isBefore(z.getEndTime())) || (end.isAfter(z.getEndTime()) && start.isBefore(z.getStartTime()))) {
-                    stop = true;
+                    throw new NotFitInDayExeception();
+                    //stop = true;
                 }
             }
             if (!stop) {
+
                 zones.add(zone);
+
             }
             else System.out.println("ERREUR: insertion impossible!");
         }
         fuseZones();
+
     }
     public void removeZone(FreeZone zone) {
         LocalTime start = zone.getStartTime();
@@ -187,7 +195,7 @@ public class Day implements Comparable<Day>, Serializable {
     }
 
 
-    public static boolean isInsertable(Iterable<FreeZone> c, FreeZone toInsert) {
+    public static boolean isInsertable(Iterable<FreeZone> c, FreeZone toInsert){
         LocalTime start = toInsert.getStartTime();
         LocalTime end = toInsert.getEndTime();
         boolean stop = false;
@@ -213,7 +221,7 @@ public class Day implements Comparable<Day>, Serializable {
         return zones.contains(zone);
     }
 
-    public boolean unAppendTask(Task task,FreeZone zone){
+    public boolean unAppendTask(Task task,FreeZone zone)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
 
         FreeZone newZone;
 
@@ -245,7 +253,7 @@ public class Day implements Comparable<Day>, Serializable {
     // removes a task from a day (the one that we will use)
     // if the task is simple, then it will remove one zone from the day
     // if the task is complex, then it will remove all occurences of task in that day
-    public boolean unAppendTask(Task task){
+    public boolean unAppendTask(Task task)throws BeyondDeadlineException, NotFitInDayExeception,NotFitInZoneException{
         if(task instanceof SimpleTask){
             if(!task.getUnscheduled()){
                 return unAppendTask(task,((SimpleTask) task).getAssignedZone());
@@ -276,7 +284,7 @@ public class Day implements Comparable<Day>, Serializable {
     //you must check that the given task is unscheduled (because of other treatments with periodic tasks)
 
     // adds a task where possible in a day
-    public boolean appendTask(Task task, Duration minimumZoneLength){
+    public boolean appendTask(Task task, Duration minimumZoneLength)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException {
         // must check if unschedule before calling this
 
         if(task.isInsertable(this)){
@@ -312,7 +320,7 @@ public class Day implements Comparable<Day>, Serializable {
     }
 
     // adds a task to a day while specifying exactly the insertion time
-    public boolean appendTask(Task task,Duration minimumZoneLength ,LocalTime insertionTime){
+    public boolean appendTask(Task task,Duration minimumZoneLength ,LocalTime insertionTime)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         if(task instanceof SimpleTask){
             FreeZone zone=task.getInsertable(this,insertionTime);
             if(zone!=null) {
@@ -345,7 +353,7 @@ public class Day implements Comparable<Day>, Serializable {
     // adds a task to a day depending on the insertion time "like the previous one" and the duration
     // of the portion of the task you want to insert (if the task was complex, other wise the subtask
     // duration would not have any effect)
-    public boolean appendTask(Task task,Duration minimumZoneLength ,LocalTime insertionTime,Duration subTaskDuration){
+    public boolean appendTask(Task task,Duration minimumZoneLength ,LocalTime insertionTime,Duration subTaskDuration)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         if(task instanceof SimpleTask){
             FreeZone zone=task.getInsertable(this,insertionTime);
             if(zone!=null){
@@ -378,7 +386,7 @@ public class Day implements Comparable<Day>, Serializable {
 
     // adds a task in a day when possible with specifying the duration of the portion inserted
     // this is when the task is complex, other wise that parameter is ignored
-    public boolean appendTask(Task task,Duration minimumZoneLength ,Duration subTaskDuration){
+    public boolean appendTask(Task task,Duration minimumZoneLength ,Duration subTaskDuration)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         if(task instanceof SimpleTask){
             FreeZone zone=task.getInsertable(this);
             if(zone!=null){
@@ -409,7 +417,7 @@ public class Day implements Comparable<Day>, Serializable {
 
 
     // inserting a task in a day in a specified zone (i don't really know the reason why but we may use it who knows)
-    public boolean appendTask(Task task,Duration minimumZoneLength,FreeZone zone){
+    public boolean appendTask(Task task,Duration minimumZoneLength,FreeZone zone)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         return appendTask(task,minimumZoneLength,zone.getStartTime());
     }
 
