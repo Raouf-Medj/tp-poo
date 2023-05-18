@@ -81,8 +81,6 @@ public class DayViewController {
 
 
 
-    @FXML
-    private Button taskViewButton;
 
 
     @FXML
@@ -187,7 +185,6 @@ public class DayViewController {
         fillDayBox(model);
         selectedTaskName.setText("Not Selected");
         selectedTimeSlot.setText("Not Selected");
-        taskViewButton.setDisable(true);
         unscheduleButton.setDisable(true);
 
     }
@@ -232,15 +229,17 @@ public class DayViewController {
                 label.setOnMouseClicked(event -> {
                     setSelectedTask(((OccupiedZone) zn).getTask());
                     setSelectedZone(zn);
-                    taskViewButton.setDisable(false);
                     unscheduleButton.setDisable(false);
                     removeTimeSlotButton.setDisable(false);
+                    priority.setText(selectedTask.getPriority().toString());
+                    category.setText(selectedTask.getCategory().toString());
+                    deadline.setText(selectedTask.getDeadLine().toString());
+                    duration.setText(selectedTask.getDuration().toString());
                 });
             }
             else{
                 label.setOnMouseClicked(event -> {
                     setSelectedZone(zn);
-                    taskViewButton.setDisable(true);
                     unscheduleButton.setDisable(true);
                     removeTimeSlotButton.setDisable(false);
                     setSelectedTask(null);
@@ -357,6 +356,31 @@ public class DayViewController {
         calendarModel.getUnscheduled().add(selectedTask);
         fillDayBox(model);
     }
+
+    @FXML
+    private Label category;
+
+    @FXML
+    private ChoiceBox<State> state;
+
+    @FXML
+    private Button saveStateButton;
+
+    @FXML
+    private Label deadline;
+
+    @FXML
+    private Label duration;
+
+    @FXML
+    private Label priority;
+
+
+    @FXML
+    void saveState(ActionEvent event) {
+
+    }
+
 
 
 
