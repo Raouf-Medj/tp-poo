@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class ScheduleTaskController implements Initializable {
-
+    private DayViewController dayViewController;
     private Task selectedTask;
 
     public void setSelectedTask(Task task){
@@ -33,7 +33,8 @@ public class ScheduleTaskController implements Initializable {
     @FXML
     private Button cancelButton;
 
-    public void setModel(model.Calendar calendar,Day day ,FreeZone selectedZone){
+    public void setModel(model.Calendar calendar,Day day ,FreeZone selectedZone,DayViewController controller){
+        this.dayViewController=controller;
         this.calendar=calendar;
         this.selectedZone=selectedZone;
         this.day=day;
@@ -54,6 +55,27 @@ public class ScheduleTaskController implements Initializable {
                         }
                     }
                 }
+            }
+        });
+        setDurationCheck.setOnAction(event->{
+            if(setDurationCheck.isSelected()){
+                setDurationMinutes.setDisable(false);
+                setDurationHours.setDisable(false);
+            }
+            else {
+                setDurationMinutes.setDisable(true);
+                setDurationHours.setDisable(true);
+            }
+        });
+
+        setInsertionTimeCheck.setOnAction(event->{
+            if(setInsertionTimeCheck.isSelected()){
+                setInsertionTimeMinutes.setDisable(false);
+                setInsertionTimeHours.setDisable(false);
+            }
+            else {
+                setInsertionTimeMinutes.setDisable(true);
+                setInsertionTimeHours.setDisable(true);
             }
         });
 
@@ -216,6 +238,7 @@ public class ScheduleTaskController implements Initializable {
             calendar.getUnscheduled().remove(selectedTask);
         }
         currentStage.close();
+        dayViewController.fillDayBox(day);
     }
 
     @FXML

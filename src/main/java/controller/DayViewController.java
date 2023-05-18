@@ -339,7 +339,7 @@ public class DayViewController {
         Parent root = fxmlLoader.load();
 
         ScheduleTaskController scheduleTaskController = fxmlLoader.getController();
-        scheduleTaskController.setModel(calendarModel,calendarModel.getDay(model.getDate()),selectedZone);
+        scheduleTaskController.setModel(calendarModel,calendarModel.getDay(model.getDate()),selectedZone,this);
 
         Scene scene = new Scene(root);
         Stage newStage= new Stage();
@@ -353,7 +353,9 @@ public class DayViewController {
 
     @FXML
     void unscheduleTask(ActionEvent event) {
-
+        model.unAppendTask(selectedTask);
+        calendarModel.getUnscheduled().add(selectedTask);
+        fillDayBox(model);
     }
 
 
