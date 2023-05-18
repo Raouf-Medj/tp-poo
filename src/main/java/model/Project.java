@@ -27,9 +27,11 @@ public class Project implements Serializable {
     }
 
     public double getProgress() {
-        double progress = 0.6;
+        double progress = 0;
 
-        // calculate progress: [0, 1]
+        for (Task task : tasks) {
+            // calculate progress (done / all)
+        }
 
         return progress;
     }
