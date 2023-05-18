@@ -149,6 +149,7 @@ public class StatisticsController {
         for (Map.Entry<String, Integer> e : categMap.entrySet()) {
             chartData.add(new PieChart.Data(e.getKey(), e.getValue()));
         }
+        pieChart.setData(chartData);
 
         double avg = 0;
         int cptStreaks = 0;
