@@ -5,6 +5,7 @@ import java.time.*;
 
 abstract public class Task implements Comparable<Task>, Serializable {
 
+
     public Task(String name,Category category,Priority priority,LocalDateTime deadLine,Duration duration){
         this.name=name;
         this.category=category;
@@ -12,6 +13,7 @@ abstract public class Task implements Comparable<Task>, Serializable {
         this.deadLine=deadLine;
         this.duration=duration;
         this.unscheduled = true;
+        this.state=State.NOT_REALIZED;
     }
 
     /**
@@ -25,6 +27,7 @@ abstract public class Task implements Comparable<Task>, Serializable {
     private Duration duration;
     private Boolean unscheduled;
     private Project project;
+    private State state;
 
     public void setProject(Project project) {
         this.project = project;
@@ -92,6 +95,14 @@ abstract public class Task implements Comparable<Task>, Serializable {
 
     abstract public void appendZone(FreeZone zone);
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     /**
      * Default task comparing method (by deadline)
      * @param o the task to be compared with.
@@ -99,6 +110,7 @@ abstract public class Task implements Comparable<Task>, Serializable {
      *               negative value : o is prior to current
      *               null value (0) : current is as important as o
      */
+
 
 
     @Override
