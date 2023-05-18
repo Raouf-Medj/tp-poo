@@ -233,6 +233,7 @@ public class Day implements Comparable<Day>, Serializable {
                         ((ComplexTask)task).unAppend(zone);
 
                     }
+                    task.setState(State.NOT_REALIZED);
                     return true;
                 }
             }
