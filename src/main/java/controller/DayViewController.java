@@ -186,6 +186,12 @@ public class DayViewController {
         selectedTaskName.setText("Not Selected");
         selectedTimeSlot.setText("Not Selected");
         unscheduleButton.setDisable(true);
+        state.getItems().addAll(State.values());
+        state.setDisable(true);
+        priority.setText(" -- ");
+        category.setText(" -- ");
+        deadline.setText(" -- ");
+        duration.setText(" -- ");
 
     }
 
@@ -230,11 +236,13 @@ public class DayViewController {
                     setSelectedTask(((OccupiedZone) zn).getTask());
                     setSelectedZone(zn);
                     unscheduleButton.setDisable(false);
+                    state.setDisable(false);
+                    state.setValue(selectedTask.getState());
                     removeTimeSlotButton.setDisable(false);
                     priority.setText(selectedTask.getPriority().toString());
                     category.setText(selectedTask.getCategory().toString());
-                    deadline.setText(selectedTask.getDeadLine().toString());
-                    duration.setText(selectedTask.getDuration().toString());
+                    deadline.setText(selectedTask.getDeadLine().toLocalDate().toString()+" "+selectedTask.getDeadLine().toLocalTime().toString());
+                    duration.setText(Integer.toString(selectedTask.getDuration().toHoursPart())+" hours " +Integer.toString((selectedTask.getDuration().toMinutesPart()))+" minutes");
                 });
             }
             else{
@@ -243,6 +251,11 @@ public class DayViewController {
                     unscheduleButton.setDisable(true);
                     removeTimeSlotButton.setDisable(false);
                     setSelectedTask(null);
+                    state.setDisable(true);
+                    priority.setText(" -- ");
+                    category.setText(" -- ");
+                    deadline.setText(" -- ");
+                    duration.setText(" -- ");
                 });
                 label.setBackground(backgroundBlue);
                 label.setText("Free Time");
@@ -253,7 +266,24 @@ public class DayViewController {
         setProgressState();
     }
 
+    public void updateNumberOfDoneTasks(){
+        numberOfDoneTasks=0;
+        numberOfTasks=0;
+        for(FreeZone zn : model.getZones()){
+            if(zn instanceof OccupiedZone){
+                if(((OccupiedZone) zn).getTask().getState().equals(State.COMPLETED)){
+                    numberOfDoneTasks++;
+                    numberOfTasks++;
+                }
+                else if(!((OccupiedZone) zn).getTask().getState().equals(State.CANCELLED)&&!((OccupiedZone) zn).getTask().getState().equals((State.DELAYED))){
+                    numberOfTasks++;
+                }
+            }
+        }
+    }
+
     public void setProgressState(){
+        updateNumberOfDoneTasks();
         comment.setStyle("-fx-text-fill: blue;");
         comment.setText("A journey with a thousand miles begins with a single step");
         progressBar.setProgress(0);
@@ -268,7 +298,7 @@ public class DayViewController {
                 comment.setText("Well done ! all tasks finished");
                 comment.setStyle("-fx-text-fill: Green;");
             }else if(numberOfDoneTasks>=1){
-                comment.setText("You have "+(numberOfTasks-numberOfDoneTasks)+" out of "+numberOfTasks+" tasks done");
+                comment.setText("You have "+(numberOfDoneTasks)+" out of "+numberOfTasks+" tasks done");
                 comment.setStyle("-fx-text-fill: Black;");
             }
         }
@@ -311,7 +341,7 @@ public class DayViewController {
     @FXML
     void removeTimeSlot(ActionEvent event) {
         if(selectedZone instanceof OccupiedZone){
-            selectedTask.setUnscheduled(true);
+            model.unAppendTask(selectedTask);
             calendarModel.getUnscheduled().add(selectedTask);
             selectedTask=null;
             model.removeZone(selectedZone);
@@ -321,6 +351,7 @@ public class DayViewController {
             selectedZone=null;
 
             fillDayBox(model);
+            setProgressState();
         }else{
             model.removeZone(selectedZone);
             removeTimeSlotButton.setDisable(true);
@@ -329,7 +360,6 @@ public class DayViewController {
             fillDayBox(model);
         }
     }
-
 
     @FXML
     void scheduleTask(ActionEvent event) throws IOException{
@@ -348,6 +378,7 @@ public class DayViewController {
         newStage.setResizable(false);
         scheduleTaskController.setCurrentStage(newStage);
         newStage.show();
+        setProgressState();
     }
 
     @FXML
@@ -355,6 +386,8 @@ public class DayViewController {
         model.unAppendTask(selectedTask);
         calendarModel.getUnscheduled().add(selectedTask);
         fillDayBox(model);
+        numberOfTasks--;
+        setProgressState();
     }
 
     @FXML
@@ -378,9 +411,16 @@ public class DayViewController {
 
     @FXML
     void saveState(ActionEvent event) {
-
+        selectedTask.setState(state.getValue());
+        if(state.getValue().equals(State.CANCELLED) || state.getValue().equals(State.DELAYED)){
+            numberOfTasks--;
+        }
+        setProgressState();
     }
 
+    public void incrementNumberOfTasks(){
+        numberOfTasks++;
+    }
 
 
 

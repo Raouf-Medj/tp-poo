@@ -61,6 +61,7 @@ public class FreeZone implements Comparable<FreeZone>, Serializable {
             outPutZones.add(zoneAfter);
         }
         task.appendZone(occupiedZone);
+        task.setState(State.IN_PROGRESS);
         return outPutZones;
     }
 
@@ -105,6 +106,7 @@ public class FreeZone implements Comparable<FreeZone>, Serializable {
             outPutZones.add(zoneAfter);
         }
         task.appendZone(occupiedZone);
+        task.setState(State.IN_PROGRESS);
         return outPutZones;
     }
     public ArrayList<FreeZone> appendTask(ComplexTask task,Duration minimumZonePeriod,LocalTime insertionTime){

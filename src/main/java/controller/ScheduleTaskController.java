@@ -236,6 +236,8 @@ public class ScheduleTaskController implements Initializable {
         }
         if(!selectedTask.getUnscheduled()){
             calendar.getUnscheduled().remove(selectedTask);
+            dayViewController.incrementNumberOfTasks();
+            dayViewController.setProgressState();
         }
         currentStage.close();
         dayViewController.fillDayBox(day);
