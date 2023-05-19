@@ -129,6 +129,25 @@ public class ProjectsController {
     }
 
     @FXML
+    void goBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/projects.fxml"));
+        Parent root = loader.load();
+
+        ProjectsController controller = loader.getController();
+        controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        controller.setCurrentStage(currentStage);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Projects");
+        currentStage.setResizable(false);
+        currentStage.show();
+    }
+
+    @FXML
     void createNew(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/addproject.fxml"));
@@ -165,7 +184,7 @@ public class ProjectsController {
 
         if (projectName !=  null) {
             projectName.setText(currentProject.toString());
-            projectDesc.setText(currentProject.getDescription());
+            if (!currentProject.getDescription().equals("")) projectDesc.setText(currentProject.getDescription());
             progressPourcentage.setText(""+((int) currentProject.getProgress()*100));
             progressBar.setProgress(currentProject.getProgress());
         }
