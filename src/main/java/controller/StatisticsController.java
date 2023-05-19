@@ -170,7 +170,7 @@ public class StatisticsController {
                         cpt++;
                     }
                 }
-                avg += cptDone / cpt;
+                if (cpt !=  0) avg += cptDone / cpt;
                 cptDays++;
 
                 if (day.isGoalAchieved()) {
@@ -184,7 +184,7 @@ public class StatisticsController {
             }
             avg = avg / cptDays;
         }
-        avgProd.setText(""+((int) avg));
+        avgProd.setText(""+((int) (avg*100)));
         nbStreaks.setText(""+cptStreaks);
         if (bestProd !=  null) bestDay.setText(bestProd.toString());
     }

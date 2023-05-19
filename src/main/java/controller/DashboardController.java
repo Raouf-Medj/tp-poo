@@ -109,6 +109,8 @@ public class DashboardController implements Initializable {
                 }
             });
 
+            calendarModel.updateBadge();
+
             if (!calendarModel.getBadges().isEmpty()) {
                 Collections.sort(calendarModel.getBadges());
                 badge.setImage(new Image("/"+calendarModel.getBadges().get(calendarModel.getBadges().size()-1).toString()+".png"));
