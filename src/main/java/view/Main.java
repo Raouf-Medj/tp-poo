@@ -70,8 +70,10 @@ public class Main extends Application {
         session.setActiveUser(null);
 
         for (Map.Entry<String, User> e : session.getUsers().entrySet()) {
-            e.getValue().getCalendarModel().setProjectsSave(new ArrayList<>(e.getValue().getCalendarModel().getProjects()));
-            e.getValue().getCalendarModel().setUnscheduledSave(new ArrayList<>(e.getValue().getCalendarModel().getUnscheduled()));
+            if (e.getValue().getCalendarModel() !=  null) {
+                e.getValue().getCalendarModel().setProjectsSave(new ArrayList<>(e.getValue().getCalendarModel().getProjects()));
+                e.getValue().getCalendarModel().setUnscheduledSave(new ArrayList<>(e.getValue().getCalendarModel().getUnscheduled()));
+            }
         }
 
 
@@ -99,8 +101,10 @@ public class Main extends Application {
                 // Deserialize the data
                 save = (Users) in.readObject();
                 for (Map.Entry<String, User> e : save.getUsers().entrySet()) {
-                    e.getValue().getCalendarModel().getProjects().addAll(e.getValue().getCalendarModel().getProjectsSave());
-                    e.getValue().getCalendarModel().getUnscheduled().addAll(e.getValue().getCalendarModel().getUnscheduledSave());
+                    if (e.getValue().getCalendarModel() !=  null) {
+                        e.getValue().getCalendarModel().getProjects().addAll(e.getValue().getCalendarModel().getProjectsSave());
+                        e.getValue().getCalendarModel().getUnscheduled().addAll(e.getValue().getCalendarModel().getUnscheduledSave());
+                    }
                 }
             }
             catch (IOException | ClassNotFoundException e) {
