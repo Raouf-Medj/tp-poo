@@ -149,6 +149,7 @@ public class StatisticsController {
         for (Map.Entry<String, Integer> e : categMap.entrySet()) {
             chartData.add(new PieChart.Data(e.getKey(), e.getValue()));
         }
+        pieChart.setData(chartData);
 
         double avg = 0;
         int cptStreaks = 0;
@@ -169,7 +170,7 @@ public class StatisticsController {
                         cpt++;
                     }
                 }
-                avg += cptDone / cpt;
+                if (cpt !=  0) avg += cptDone / cpt;
                 cptDays++;
 
                 if (day.isGoalAchieved()) {
@@ -183,7 +184,7 @@ public class StatisticsController {
             }
             avg = avg / cptDays;
         }
-        avgProd.setText(""+((int) avg));
+        avgProd.setText(""+((int) (avg*100)));
         nbStreaks.setText(""+cptStreaks);
         if (bestProd !=  null) bestDay.setText(bestProd.toString());
     }

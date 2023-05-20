@@ -34,6 +34,35 @@ public class Calendar implements Serializable {
         return null;
     }
 
+    public void updateBadge() {
+        badges.clear();
+        int cpt = 0;
+        for (Map.Entry<LocalDate, Day> e : calendar.entrySet()) {
+            Day day = e.getValue();
+            if (day.isGoalAchieved()) {
+                cpt++;
+            }
+        }
+        if (cpt >=  5) {
+            badges.add(Badge.GOOD);
+        }
+        if (cpt >=  10) {
+            badges.add(Badge.GOOD);
+        }
+        if (cpt >=  15) {
+            badges.add(Badge.GOOD);
+            badges.add(Badge.VERY_GOOD);
+        }
+        if (cpt >=  30) {
+            badges.add(Badge.VERY_GOOD);
+        }
+        if (cpt >=  45) {
+            badges.add(Badge.VERY_GOOD);
+            badges.add(Badge.EXCELLENT);
+        }
+        Collections.sort(badges);
+    }
+
     public Map<String, Integer> getCategories() {
         Map<String, Integer> map = new HashMap<>();
         for (Map.Entry<LocalDate, Day> e : calendar.entrySet()) {

@@ -118,6 +118,9 @@ public class Day implements Comparable<Day>, Serializable {
                     }
                 }
                 if (y !=  null) {
+                    if (isInsertable(temp, z)) {
+                        temp.add(z);
+                    }
                     if (isInsertable(temp, y)) {
                         temp.add(y);
                     }
@@ -194,10 +197,11 @@ public class Day implements Comparable<Day>, Serializable {
 
     public void showDay() {
         for (FreeZone z : zones) {
-            System.out.println("->  "+z.getStartTime()+" - "+z.getEndTime());
+            //System.out.println("->  "+z.getStartTime()+" - "+z.getEndTime());
+            z.showZone();
             if(z instanceof OccupiedZone){
-                System.out.println(((OccupiedZone) z).getTask().getName());
-                System.out.println(((OccupiedZone) z).getTask().getDuration().toString());
+                if (((OccupiedZone) z).getTask() !=  null) System.out.println(((OccupiedZone) z).getTask().getName());
+                if (((OccupiedZone) z).getTask() !=  null) System.out.println(((OccupiedZone) z).getTask().getDuration().toString());
             }
 
         }

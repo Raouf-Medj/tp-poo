@@ -140,7 +140,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="bestDay" text="DD/MM/YYYY">
+                  <Label fx:id="bestDay" text="No current planning">
                      <font>
                         <Font size="20.0" />
                      </font>
