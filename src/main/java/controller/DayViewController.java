@@ -318,6 +318,7 @@ public class DayViewController {
     }
 
     public void setProgressState(){
+        model.setGoalAchieved(false);
         updateNumberOfDoneTasks();
         comment.setStyle("-fx-text-fill: blue;");
         comment.setText("A journey with a thousand miles begins with a single step");
@@ -332,6 +333,7 @@ public class DayViewController {
             if(numberOfTasks==numberOfDoneTasks){
                 comment.setText("Well done ! all tasks finished");
                 comment.setStyle("-fx-text-fill: Green;");
+                model.setGoalAchieved(true);
             }else if(numberOfDoneTasks>=1){
                 comment.setText("You have "+(numberOfDoneTasks)+" out of "+numberOfTasks+" tasks done");
                 comment.setStyle("-fx-text-fill: Black;");
