@@ -30,4 +30,8 @@ public class SimpleTask extends Task{
     public FreeZone getAssignedZone(){
         return assignedZone;
     }
+
+    public int getDayPeriod() {
+        return dayPeriod;
+    }
 }

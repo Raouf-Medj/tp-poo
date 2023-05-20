@@ -135,6 +135,7 @@ public class Calendar implements Serializable {
         currentListUnscheduledTasks.sort(Collections.reverseOrder());
         Set<Map.Entry<LocalDate, Day> > days = planning.getDays().entrySet();
         Day currentDay;
+        
 
         boolean dayFilled;
 

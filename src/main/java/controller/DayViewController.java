@@ -246,11 +246,17 @@ public class DayViewController {
             Background backgroundOrange = new Background(backgroundFillOrange);
             BackgroundFill backgroundFillBlue = new BackgroundFill(Color.rgb(101,170,194), new CornerRadii(10), Insets.EMPTY);
             Background backgroundBlue = new Background(backgroundFillBlue);
+            BackgroundFill backgroundFillGreen = new BackgroundFill(Color.rgb(110,215,88), new CornerRadii(10), Insets.EMPTY);
+            Background backgroundGreen = new Background(backgroundFillGreen);
             if (zn instanceof OccupiedZone){
                 numberOfTasks++;
                 //if(((OccupiedZone) zn).getTask().getState()==completed){
                 //numberOfDoneTasks++
-                label.setBackground(backgroundOrange);
+                if(((OccupiedZone) zn).getTask().getState().equals(State.COMPLETED)){
+                    label.setBackground(backgroundGreen);
+                }else {
+                    label.setBackground(backgroundOrange);
+                }
                 label.setText(((OccupiedZone) zn).getName());
                 label.setOnMouseClicked(event -> {
                     setSelectedTask(((OccupiedZone) zn).getTask());
@@ -454,6 +460,7 @@ public class DayViewController {
             numberOfTasks--;
         }
         setProgressState();
+        fillDayBox(model);
     }
 
     public void incrementNumberOfTasks(){
