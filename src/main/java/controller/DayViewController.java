@@ -241,6 +241,8 @@ public class DayViewController {
             label.setAlignment(Pos.CENTER);
             label.setPrefHeight(((double)zn.getDuration().toMinutes())*31.0/60.0);
             label.setTranslateY((((double)zn.getStartTime().getHour())+((double)zn.getStartTime().getMinute())/60.0)*31.0-originalPosition);
+            label.setOnMouseEntered(event -> label.setStyle("-fx-border-color: grey;" + "-fx-border-width: 3px;" + "-fx-border-radius: 5px;"));
+            label.setOnMouseExited(event -> label.setStyle("-fx-border-color: grey;" + "-fx-border-width: 0px;" + "-fx-border-radius: 5px;") );
             originalPosition+=((double)zn.getDuration().toMinutes())*31.0/60.0;
             BackgroundFill backgroundFillOrange = new BackgroundFill(Color.rgb(224,166,108), new CornerRadii(10), Insets.EMPTY);
             Background backgroundOrange = new Background(backgroundFillOrange);
@@ -269,7 +271,12 @@ public class DayViewController {
                     priority.setText(selectedTask.getPriority().toString());
                     category.setText(selectedTask.getCategory().toString());
                     deadline.setText(selectedTask.getDeadLine().toLocalDate().toString()+" "+selectedTask.getDeadLine().toLocalTime().toString());
-                    duration.setText(Integer.toString(selectedTask.getDuration().toHoursPart())+" hours " +Integer.toString((selectedTask.getDuration().toMinutesPart()))+" minutes");
+                    if(selectedTask instanceof SimpleTask){
+                        duration.setText(Integer.toString(selectedTask.getDuration().toHoursPart())+" hours " +Integer.toString((selectedTask.getDuration().toMinutesPart()))+" minutes");
+                    }
+                    else{
+                        duration.setText(" Current : "+Integer.toString(selectedZone.getDuration().toHoursPart())+" H " +Integer.toString((selectedZone.getDuration().toMinutesPart()))+" M" +", Total : "+Integer.toString(((ComplexTask)selectedTask).getFullDuration().toHoursPart())+" H " +Integer.toString((((ComplexTask)selectedTask).getFullDuration().toMinutesPart()))+" M"+", unscheduled : "+Integer.toString(selectedTask.getDuration().toHoursPart())+" H " +Integer.toString((selectedTask.getDuration().toMinutesPart()))+" M");
+                    }
                 });
             }
             else{
@@ -419,6 +426,10 @@ public class DayViewController {
 
     @FXML
     void unscheduleTask(ActionEvent event) {
+        boolean unscheduled = false;
+        if(selectedTask instanceof ComplexTask){
+            unscheduled = selectedTask.getUnscheduled();
+        }
         try {
             model.unAppendTask(selectedTask);
         }catch(BeyondDeadlineException e){
@@ -428,7 +439,9 @@ public class DayViewController {
         }catch(NotFitInZoneException e){
             setStatus(e.getMessage(),true);
         }
-        calendarModel.getUnscheduled().add(selectedTask);
+        if((selectedTask instanceof ComplexTask && !unscheduled && selectedTask.getUnscheduled()) || selectedTask instanceof SimpleTask){
+            calendarModel.getUnscheduled().add(selectedTask);
+        }
         fillDayBox(model);
         numberOfTasks--;
         setProgressState();

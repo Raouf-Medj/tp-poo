@@ -105,7 +105,10 @@ public class FreeZone implements Comparable<FreeZone>, Serializable {
             zoneAfter=new FreeZone(newEndTime,endTime);
             outPutZones.add(zoneAfter);
         }
+
         task.appendZone(occupiedZone);
+
+
         task.setState(State.IN_PROGRESS);
         return outPutZones;
     }

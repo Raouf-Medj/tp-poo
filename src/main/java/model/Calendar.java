@@ -9,6 +9,7 @@ import model.users.User;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class Calendar implements Serializable {
@@ -162,18 +163,55 @@ public class Calendar implements Serializable {
     public ArrayList<Task> fillPlanning(Planning planning, ArrayList<Task> tasks, Duration minimumZoneSize){
         ArrayList<Task> currentListUnscheduledTasks=new ArrayList<Task>(tasks);
         currentListUnscheduledTasks.sort(Collections.reverseOrder());
+        ArrayList<Task> finalResult = new ArrayList<Task>(tasks);
+        List<Task> filteredPeriodicTasks = currentListUnscheduledTasks.stream()
+                .filter(task -> task instanceof SimpleTask && ((SimpleTask) task).getDayPeriod()!=0) // Condition for filtering
+                .toList();
+        for(Task task : filteredPeriodicTasks){
+            Day current = getDay(planning.getStartDay());
+            while(current.getDate().plusDays((((SimpleTask)task).getDayPeriod())).isBefore(planning.getEndDay()) || current.getDate().plusDays((((SimpleTask)task).getDayPeriod())).equals(planning.getEndDay())){
+
+
+                try {
+                    current.appendTask(task, minimumZoneSize);
+                    if(!task.getUnscheduled()){
+                        finalResult.remove(task);
+                    }
+
+                }
+                catch(BeyondDeadlineException e){
+
+                }
+                catch(NotFitInZoneException e){
+
+                }
+                catch(NotFitInDayExeception e){
+
+                }
+                current= getDay(current.getDate().plusDays((((SimpleTask)task).getDayPeriod())));
+            }
+
+
+
+        }
+
         Set<Map.Entry<LocalDate, Day> > days = planning.getDays().entrySet();
         Day currentDay;
-        
 
         boolean dayFilled;
-
+        System.out.println("went to second step");
         for (Map.Entry<LocalDate, Day> entry : days) {
+            System.out.println("iterating through a day");
             currentDay = getDay(entry.getValue().getDate());
             for(Task tsk : currentListUnscheduledTasks){
                 if(tsk.getUnscheduled()){
                     try {
+                        System.out.println("trying to insert a task");
                         currentDay.appendTask(tsk, minimumZoneSize);
+                        System.out.println("task inserted succesfully");
+                        if(!tsk.getUnscheduled()){
+                            finalResult.remove(tsk);
+                        }
                     }catch(BeyondDeadlineException e){
 
                     }catch(NotFitInZoneException e){
@@ -183,13 +221,17 @@ public class Calendar implements Serializable {
                     }
 
                 }
+
                 if(currentDay.getDurationLeft().compareTo(minimumZoneSize)<=0){
                     break;
                 }
+
             }
         }
-
-        return currentListUnscheduledTasks;
+        for(Task task:finalResult){
+            System.out.println(task.getName());
+        }
+        return finalResult;
     }
 
     //-------------------{ util attributes }----------------------

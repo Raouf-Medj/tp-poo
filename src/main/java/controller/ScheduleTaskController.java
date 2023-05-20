@@ -160,11 +160,11 @@ public class ScheduleTaskController implements Initializable {
 
         SpinnerValueFactory<Integer> sdh = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
         sdh.setValue(0);
-        setDurationHours.setValueFactory(sitm);
+        setDurationHours.setValueFactory(sdh);
 
         SpinnerValueFactory<Integer> sdm = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
         sdm.setValue(0);
-        setDurationMinutes.setValueFactory(sitm);
+        setDurationMinutes.setValueFactory(sdm);
 
     }
 
@@ -205,6 +205,7 @@ public class ScheduleTaskController implements Initializable {
 
     @FXML
     void addTask(ActionEvent event) {
+
         try{
             if(insertInZoneCheck.isSelected() && selectedZone != null){
                 day.appendTask(selectedTask,calendar.getMinDuration(),selectedZone);
@@ -246,7 +247,6 @@ public class ScheduleTaskController implements Initializable {
         }catch(NotFitInZoneException e){
             dayViewController.setStatus(e.getMessage(),true);
         }
-
         if(!selectedTask.getUnscheduled()){
             calendar.getUnscheduled().remove(selectedTask);
             dayViewController.incrementNumberOfTasks();
@@ -254,6 +254,7 @@ public class ScheduleTaskController implements Initializable {
         }
         currentStage.close();
         dayViewController.fillDayBox(day);
+
     }
 
     @FXML
