@@ -169,13 +169,15 @@ public class Calendar implements Serializable {
                 .toList();
         for(Task task : filteredPeriodicTasks){
             Day current = getDay(planning.getStartDay());
-            while(current.getDate().plusDays((((SimpleTask)task).getDayPeriod())).isBefore(planning.getEndDay()) || current.getDate().plusDays((((SimpleTask)task).getDayPeriod())).equals(planning.getEndDay())){
+            while(current.getDate().isBefore(planning.getEndDay()) || current.getDate().equals(planning.getEndDay())){
 
 
                 try {
                     current.appendTask(task, minimumZoneSize);
                     if(!task.getUnscheduled()){
+                        task.setState(State.IN_PROGRESS);
                         finalResult.remove(task);
+                        getUnscheduled().remove(task);
                     }
 
                 }
@@ -199,18 +201,18 @@ public class Calendar implements Serializable {
         Day currentDay;
 
         boolean dayFilled;
-        System.out.println("went to second step");
         for (Map.Entry<LocalDate, Day> entry : days) {
-            System.out.println("iterating through a day");
             currentDay = getDay(entry.getValue().getDate());
             for(Task tsk : currentListUnscheduledTasks){
                 if(tsk.getUnscheduled()){
                     try {
-                        System.out.println("trying to insert a task");
+
                         currentDay.appendTask(tsk, minimumZoneSize);
-                        System.out.println("task inserted succesfully");
+
                         if(!tsk.getUnscheduled()){
                             finalResult.remove(tsk);
+                            getUnscheduled().remove(tsk);
+                            tsk.setState(State.IN_PROGRESS);
                         }
                     }catch(BeyondDeadlineException e){
 
@@ -229,6 +231,7 @@ public class Calendar implements Serializable {
             }
         }
         for(Task task:finalResult){
+            System.out.println("WHAT IS LEFT OF THE PLANNING THING");
             System.out.println(task.getName());
         }
         return finalResult;

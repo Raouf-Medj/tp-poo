@@ -385,7 +385,10 @@ public class DayViewController {
             }catch(NotFitInZoneException e){
                 setStatus(e.getMessage(),true);
             }
-            calendarModel.getUnscheduled().add(selectedTask);
+            if(!calendarModel.getUnscheduled().contains(selectedTask)){
+                calendarModel.getUnscheduled().add(selectedTask);
+            }
+
             selectedTask=null;
             model.removeZone(selectedZone);
             removeTimeSlotButton.setDisable(true);
@@ -430,6 +433,11 @@ public class DayViewController {
         if(selectedTask instanceof ComplexTask){
             unscheduled = selectedTask.getUnscheduled();
         }
+
+        System.out.println("before task removal : ");
+        model.showDay();
+        System.out.println("\n*********************\n");
+
         try {
             model.unAppendTask(selectedTask);
         }catch(BeyondDeadlineException e){
@@ -439,9 +447,12 @@ public class DayViewController {
         }catch(NotFitInZoneException e){
             setStatus(e.getMessage(),true);
         }
-        if((selectedTask instanceof ComplexTask && !unscheduled && selectedTask.getUnscheduled()) || selectedTask instanceof SimpleTask){
+        if(((selectedTask instanceof ComplexTask && !unscheduled && selectedTask.getUnscheduled()) && !calendarModel.getUnscheduled().contains(selectedTask)) || (selectedTask instanceof SimpleTask && !calendarModel.getUnscheduled().contains(selectedTask))){
             calendarModel.getUnscheduled().add(selectedTask);
         }
+        System.out.println("after task removal : ");
+        model.showDay();
+        System.out.println("\n*********************\n");
         fillDayBox(model);
         numberOfTasks--;
         setProgressState();
