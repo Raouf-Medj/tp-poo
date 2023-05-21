@@ -348,7 +348,8 @@ public class Day implements Comparable<Day>, Serializable {
                 }
                 return true;
             }
-            return false;
+            throw new NotFitInDayExeception();
+            //return false;
         }
         else if(task instanceof ComplexTask){
             FreeZone zone=task.getInsertable(this,insertionTime);
