@@ -20,9 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Exceptions.BeyondDeadlineException;
-import model.Exceptions.NotFitInDayExeception;
-import model.Exceptions.NotFitInZoneException;
+import model.exceptions.BeyondDeadlineException;
+import model.exceptions.NotFitInDayExeception;
+import model.exceptions.NotFitInZoneException;
 import model.users.Users;
 
 
@@ -318,6 +318,7 @@ public class DayViewController {
     }
 
     public void setProgressState(){
+        int goal = calendarModel.getNbCompletedToCongratulate();
         model.setGoalAchieved(false);
         updateNumberOfDoneTasks();
         comment.setStyle("-fx-text-fill: blue;");
@@ -329,6 +330,18 @@ public class DayViewController {
             progressBar.setProgress(0);
         }
         else{
+/*            progressBar.setProgress(((double)numberOfDoneTasks)/((double)numberOfTasks));
+            if(numberOfTasks==numberOfDoneTasks){
+                comment.setText("Well done ! all tasks finished");
+                comment.setStyle("-fx-text-fill: Green;");
+                model.setGoalAchieved(true);
+            }else if(numberOfDoneTasks>=1){
+                comment.setText("You have "+(numberOfDoneTasks)+" out of "+numberOfTasks+" tasks done");
+                comment.setStyle("-fx-text-fill: Black;");
+            }*/
+            if(numberOfTasks<=goal && goal!=0){
+                progressBar.setProgress(((double)numberOfDoneTasks)/((double)numberOfTasks));
+            }
             progressBar.setProgress(((double)numberOfDoneTasks)/((double)numberOfTasks));
             if(numberOfTasks==numberOfDoneTasks){
                 comment.setText("Well done ! all tasks finished");

@@ -1,8 +1,9 @@
 package model;
 
-import model.Exceptions.BeyondDeadlineException;
-import model.Exceptions.NotFitInDayExeception;
-import model.Exceptions.NotFitInZoneException;
+import javafx.application.Preloader;
+import model.exceptions.BeyondDeadlineException;
+import model.exceptions.NotFitInDayExeception;
+import model.exceptions.NotFitInZoneException;
 
 import java.io.Serializable;
 import java.time.*;
@@ -176,9 +177,23 @@ abstract public class Task implements Comparable<Task>, Serializable {
     public boolean isInsertable(Day day)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         if(getDeadLine().toLocalDate().equals(day.getDate()) || getDeadLine().toLocalDate().isAfter(day.getDate())){
             for(FreeZone zone: day.getZones()){
-                if(isInsertable(zone)){
-                    return true;
+                System.out.println(zone);
+                try{
+                    if(isInsertable(zone)){
+
+                        return true;
+                    }
                 }
+                catch(BeyondDeadlineException e){
+                    System.out.println(e.getMessage());
+                }
+                catch (NotFitInZoneException e){
+                    System.out.println(e.getMessage());
+                }
+                catch(NotFitInDayExeception e){
+                    System.out.println(e.getMessage());
+                }
+
             }
         }else{
             throw new BeyondDeadlineException();
@@ -216,9 +231,18 @@ abstract public class Task implements Comparable<Task>, Serializable {
     public FreeZone getInsertable(Day day)throws BeyondDeadlineException, NotFitInDayExeception, NotFitInZoneException{
         if(getDeadLine().toLocalDate().equals(day.getDate()) || getDeadLine().toLocalDate().isAfter(day.getDate())){
             for(FreeZone zn: day.getZones()){
-                if(isInsertable(zn)){
-                    return zn;
+                try{
+                    if(isInsertable(zn)){
+                        return zn;
+                    }
+                }catch (BeyondDeadlineException e){
+                    System.out.println(e.getMessage());
+                }catch(NotFitInZoneException e){
+                    System.out.println(e.getMessage());
+                }catch(NotFitInDayExeception e){
+                    System.out.println(e.getMessage());
                 }
+
             }
         }else {
             throw new BeyondDeadlineException();

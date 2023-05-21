@@ -17,15 +17,14 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.URL;
 import java.util.*;
 import java.time.*;
 import javafx.scene.layout.VBox;
 import model.Calendar;
-import model.Exceptions.BeyondDeadlineException;
-import model.Exceptions.NotFitInDayExeception;
-import model.Exceptions.NotFitInZoneException;
+import model.exceptions.BeyondDeadlineException;
+import model.exceptions.NotFitInDayExeception;
+import model.exceptions.NotFitInZoneException;
 
 public class AddController implements Initializable {
     private Stage currentStage;

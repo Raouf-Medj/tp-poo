@@ -1,15 +1,14 @@
 package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Exceptions.BeyondDeadlineException;
-import model.Exceptions.NotFitInDayExeception;
-import model.Exceptions.NotFitInZoneException;
+import model.exceptions.BeyondDeadlineException;
+import model.exceptions.NotFitInDayExeception;
+import model.exceptions.NotFitInZoneException;
 import model.users.User;
 
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class Calendar implements Serializable {
@@ -169,9 +168,7 @@ public class Calendar implements Serializable {
                 .toList();
         for(Task task : filteredPeriodicTasks){
             Day current = getDay(planning.getStartDay());
-            while(current.getDate().isBefore(planning.getEndDay()) || current.getDate().equals(planning.getEndDay())){
-
-
+            while((current != null)&&(current.getDate().isBefore(planning.getEndDay()) || current.getDate().equals(planning.getEndDay()))){
                 try {
                     current.appendTask(task, minimumZoneSize);
                     if(!task.getUnscheduled()){
@@ -205,21 +202,22 @@ public class Calendar implements Serializable {
             currentDay = getDay(entry.getValue().getDate());
             for(Task tsk : currentListUnscheduledTasks){
                 if(tsk.getUnscheduled()){
+                    currentDay.showDay();
+                    System.out.println(tsk);
+                    System.out.println();
                     try {
-
                         currentDay.appendTask(tsk, minimumZoneSize);
-
                         if(!tsk.getUnscheduled()){
                             finalResult.remove(tsk);
                             getUnscheduled().remove(tsk);
                             tsk.setState(State.IN_PROGRESS);
                         }
                     }catch(BeyondDeadlineException e){
-
+                        System.out.println(e.getMessage());
                     }catch(NotFitInZoneException e){
-
+                        System.out.println(e.getMessage());
                     }catch(NotFitInDayExeception e){
-
+                        System.out.println(e.getMessage());
                     }
 
                 }

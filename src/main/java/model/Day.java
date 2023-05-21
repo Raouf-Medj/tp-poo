@@ -1,10 +1,9 @@
 package model;
 
-import model.Exceptions.BeyondDeadlineException;
-import model.Exceptions.NotFitInDayExeception;
-import model.Exceptions.NotFitInZoneException;
+import model.exceptions.BeyondDeadlineException;
+import model.exceptions.NotFitInDayExeception;
+import model.exceptions.NotFitInZoneException;
 
-import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.DayOfWeek;
@@ -307,7 +306,9 @@ public class Day implements Comparable<Day>, Serializable {
 
             if(task instanceof SimpleTask){
                 FreeZone zone=task.getInsertable(this);
+
                 if(zone!=null){
+
                     removeZone(zone);
                     ArrayList<FreeZone> zones=zone.appendTask((SimpleTask)task,minimumZoneLength);
                     for (FreeZone zn : zones){

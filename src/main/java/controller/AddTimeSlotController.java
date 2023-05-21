@@ -8,13 +8,12 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import model.Calendar;
 import model.Day;
-import model.Exceptions.BeyondDeadlineException;
-import model.Exceptions.NotFitInDayExeception;
-import model.Exceptions.NotFitInZoneException;
+import model.exceptions.BeyondDeadlineException;
+import model.exceptions.NotFitInDayExeception;
+import model.exceptions.NotFitInZoneException;
 import model.FreeZone;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AddTimeSlotController {

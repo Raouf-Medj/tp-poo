@@ -11,4 +11,7 @@ module view {
     exports view;
     exports model.users;
     opens model.users to javafx.fxml;
+    exports model.exceptions;
+    opens model.exceptions to javafx.fxml;
+
 }
