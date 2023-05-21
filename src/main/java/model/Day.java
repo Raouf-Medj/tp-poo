@@ -362,7 +362,8 @@ public class Day implements Comparable<Day>, Serializable {
                 }
                 return true;
             }
-            return false;
+            throw new NotFitInDayExeception();
+            //return false;
         }
         return false;
     }
