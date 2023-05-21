@@ -420,15 +420,12 @@ public class DashboardController implements Initializable {
                         });
                         Day day = calendarModel.getDay(LocalDate.of(toView.getYear(), toView.getMonthValue(), currentDate));
                         if (day !=  null && day.getZonesNumber() !=  0) {
-                            rectangle.setFill(Color.GREY);
-                            rectangle.setStyle("-fx-opacity : 0.3");
+                            rectangle.setFill(Color.LIGHTYELLOW);
+                            rectangle.setStyle("-fx-opacity : 1");
                             rectangle.setStrokeWidth(1.5);
-                            rectangle.setOnMouseExited(event -> rectangle.setStyle("-fx-opacity : 0.3"));
-                        }
-                        else {
+                            rectangle.setOnMouseEntered(event -> rectangle.setStyle("-fx-opacity : 0.6"));
                             rectangle.setOnMouseExited(event -> rectangle.setStyle("-fx-opacity : 1"));
                         }
-                        rectangle.setOnMouseEntered(event -> rectangle.setStyle("-fx-opacity : 0.2"));
                     }
                     if(LocalDate.now().getYear() == toView.getYear() && LocalDate.now().getMonth() == toView.getMonth() && LocalDate.now().getDayOfMonth() == currentDate){
                         rectangle.setStroke(Color.DODGERBLUE);

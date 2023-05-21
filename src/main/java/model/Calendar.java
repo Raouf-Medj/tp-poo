@@ -135,6 +135,7 @@ public class Calendar implements Serializable {
     }
     public void removePlanning(Planning planning) {
         // check whether the planning exists (using it's ID, and then removing it using the predefined method, must have a user validation before ...)
+        plannings.remove(planning);
     }
     public void extendPlanning(Planning planning) {
         //check first that the given planning is extendable, if so then call : planning.extendPlanning

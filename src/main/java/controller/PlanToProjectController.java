@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import model.Calendar;
 import model.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlanToProjectController {
@@ -32,22 +34,43 @@ public class PlanToProjectController {
             for (Task task : selectedTasks) task.setProject(selectedProject);
             selectedProject.getTasks().addAll(selectedTasks);
         }
-
+        // in both cases check why "remaining" is empty
+        calendarModel.getUnscheduled().removeAll(selectedTasks);
+        List<Task> remaining = new ArrayList<>();
         if (selectedPlanning !=  null) {
             List<Task> unscheduled = calendarModel.fillPlanning(selectedPlanning, new ArrayList<>(selectedTasks), calendarModel.getMinDuration());
             if (!unscheduled.isEmpty()) {
+                remaining.addAll(unscheduled);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Warning");
-                alert.setHeaderText("No free timeslots defined");
-                alert.setContentText("Some tasks were not planned, please extend the planning");
+                alert.setHeaderText("No free timeslots found");
+                alert.setContentText("Some tasks were not planned, please extend the planning or add more free timeslots");
                 alert.showAndWait();
             }
         }
         else {
             // for each task:
-            // iterate through the days from today till deadline to try and find a freezone, if none found and there is an empty day
-            // prompt the user to add freezones, else if no empty days then throw exception and task stays unscheduled
+            // iterate through the days from today till deadline to try and find a freezone, if none found inform the user, so that he adds some
+            List<Task> unscheduled = selectedTasks;
+            for (Task task : selectedTasks) {
+                Planning temp = new Planning(LocalDate.now(), task.getDeadLine().toLocalDate(), calendarModel);
+                calendarModel.addPlanning(temp);
+
+                unscheduled.retainAll(calendarModel.fillPlanning(temp, new ArrayList<>(selectedTasks), calendarModel.getMinDuration()));
+
+                calendarModel.removePlanning(temp);
+            }
+            if (!unscheduled.isEmpty()) {
+                remaining.addAll(unscheduled);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Warning");
+                alert.setHeaderText("No free timeslots found");
+                alert.setContentText("Some tasks were not planned, please extend the planning or add more free timeslots");
+                alert.showAndWait();
+            }
         }
+        currentStage.close();
+        calendarModel.getUnscheduled().addAll(remaining);
     }
 
     @FXML
