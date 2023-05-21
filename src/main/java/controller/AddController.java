@@ -191,11 +191,11 @@ public class AddController implements Initializable {
                     try{
                         e.getValue().insertZone(new FreeZone(LocalTime.of(startHoursInputs.get(e.getKey()).getValue(), 0), LocalTime.of(endHoursInputs.get(e.getKey()).getValue(), 0)));
                     }catch(BeyondDeadlineException ex){
-
+                        System.out.println(ex.getMessage());
                     }catch(NotFitInDayExeception ex){
-
+                        System.out.println(ex.getMessage());
                     }catch(NotFitInZoneException ex){
-
+                        System.out.println(ex.getMessage());
                     }
 
                 }

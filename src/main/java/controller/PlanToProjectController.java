@@ -34,13 +34,13 @@ public class PlanToProjectController {
             for (Task task : selectedTasks) task.setProject(selectedProject);
             selectedProject.getTasks().addAll(selectedTasks);
         }
-        // in both cases check why "remaining" is empty
-        calendarModel.getUnscheduled().removeAll(selectedTasks);
-        List<Task> remaining = new ArrayList<>();
+//        calendarModel.getUnscheduled().removeAll(selectedTasks);
+//        List<Task> remaining = new ArrayList<>();
+
         if (selectedPlanning !=  null) {
             List<Task> unscheduled = calendarModel.fillPlanning(selectedPlanning, new ArrayList<>(selectedTasks), calendarModel.getMinDuration());
             if (!unscheduled.isEmpty()) {
-                remaining.addAll(unscheduled);
+//                remaining.addAll(unscheduled);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Warning");
                 alert.setHeaderText("No free timeslots found");
@@ -53,15 +53,16 @@ public class PlanToProjectController {
             // iterate through the days from today till deadline to try and find a freezone, if none found inform the user, so that he adds some
             List<Task> unscheduled = selectedTasks;
             for (Task task : selectedTasks) {
+                if (unscheduled.isEmpty()) continue;
                 Planning temp = new Planning(LocalDate.now(), task.getDeadLine().toLocalDate(), calendarModel);
                 calendarModel.addPlanning(temp);
 
-                unscheduled.retainAll(calendarModel.fillPlanning(temp, new ArrayList<>(selectedTasks), calendarModel.getMinDuration()));
+                List<Task> left = calendarModel.fillPlanning(temp, new ArrayList<>(unscheduled), calendarModel.getMinDuration());
+                unscheduled.retainAll(left);
 
                 calendarModel.removePlanning(temp);
             }
             if (!unscheduled.isEmpty()) {
-                remaining.addAll(unscheduled);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Warning");
                 alert.setHeaderText("No free timeslots found");
@@ -70,7 +71,7 @@ public class PlanToProjectController {
             }
         }
         currentStage.close();
-        calendarModel.getUnscheduled().addAll(remaining);
+//        calendarModel.getUnscheduled().addAll(unscheduled);
     }
 
     @FXML
