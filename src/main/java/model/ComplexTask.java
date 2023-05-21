@@ -18,18 +18,25 @@ public class ComplexTask extends Task{
         assignedZones.add(zone);
         if (getDuration().compareTo(Duration.ZERO)<=0){
             setUnscheduled(false);
+
         }
+
     }
 
     public boolean unAppend(FreeZone zone){
         if(assignedZones.contains(zone)){
             assignedZones.remove(zone);
+            setUnscheduled(true);
             return true;
         }
         else {
             return false;
         }
 
+    }
+
+    public Duration getFullDuration(){
+        return super.getDuration();
     }
 
     @Override

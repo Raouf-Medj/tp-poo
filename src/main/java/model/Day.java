@@ -244,7 +244,9 @@ public class Day implements Comparable<Day>, Serializable {
 
                 if(((OccupiedZone) zone).contains(task)){
                     newZone = new FreeZone(zone.getStartTime(),zone.getEndTime());
+                    newZone.showZone();
                     removeZone(zone);
+                    System.out.println("it should get removed");
                     insertZone(newZone);
                     if(task instanceof SimpleTask){
                         ((SimpleTask) task).unAppendZone();
@@ -285,6 +287,7 @@ public class Day implements Comparable<Day>, Serializable {
                     // and so it can skip function execution
                     // which can be sometimes usefull
                     returnValue = unAppendTask(task,zone) || returnValue;
+                    System.out.println("what ?******************");
 
                 }
             }
