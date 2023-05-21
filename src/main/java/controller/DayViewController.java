@@ -212,7 +212,7 @@ public class DayViewController {
         deadline.setText(" -- ");
         duration.setText(" -- ");
         setStatus("Oll Korrect",false);
-
+        setProgressState();
     }
 
 
@@ -490,6 +490,22 @@ public class DayViewController {
 
     @FXML
     private Label priority;
+
+    @FXML
+    private Button nextDay;
+
+    @FXML
+    private Button previousDay;
+
+    @FXML
+    void goToNextDay(ActionEvent event) {
+        setModel(calendarModel,model.getDate().plusDays(1));
+    }
+
+    @FXML
+    void goToPreviousDay(ActionEvent event) {
+        setModel(calendarModel,model.getDate().minusDays(1));
+    }
 
 
     @FXML
