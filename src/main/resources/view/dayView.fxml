@@ -199,6 +199,14 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="205.0" prefWidth="494.0">
                            <children>
+                              <Button mnemonicParsing="false" onAction="#viewDashboard" prefHeight="33.0" prefWidth="98.0" text="Calendar">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="360.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
                               <Label alignment="CENTER" prefHeight="26.0" prefWidth="158.0" text="Schedule status :">
                                  <font>
                                     <Font size="18.0" />
