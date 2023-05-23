@@ -86,6 +86,7 @@ public class PlanToProjectController {
     public void setCalendarModel(Calendar calendarModel) {
         this.calendarModel = calendarModel;
         projectChoiceBox.getItems().addAll(calendarModel.getProjects());
+        calendarModel.updateArchivedPlannings();
         planningChoiceBox.getItems().addAll(calendarModel.getPlannings());
     }
 

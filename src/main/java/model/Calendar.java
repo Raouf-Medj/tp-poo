@@ -16,16 +16,13 @@ public class Calendar implements Serializable {
     private User user;
     // a calendar should contains all plannings
     private final ArrayList<Planning> plannings = new ArrayList<>();
+    private final ArrayList<Planning> archivedPlannings = new ArrayList<>();
     private transient ObservableList<Project> projects = FXCollections.observableArrayList();
     private final TreeMap<LocalDate, Day> calendar = new TreeMap<>();
     private transient ObservableList<Task> unscheduled = FXCollections.observableArrayList();
     private Duration minDuration = Duration.ofMinutes(30);
     private int nbCompletedToCongratulate = 3;
-    private final List<Badge> badges = new ArrayList<>();
 
-    public List<Badge> getBadges() {
-        return badges;
-    }
 
     public Planning getCurrentPlanning() {
         for (Planning planning : plannings) {
@@ -34,33 +31,51 @@ public class Calendar implements Serializable {
         return null;
     }
 
-    public void updateBadge() {
-        badges.clear();
-        int cpt = 0;
-        for (Map.Entry<LocalDate, Day> e : calendar.entrySet()) {
-            Day day = e.getValue();
-            if (day.isGoalAchieved()) {
-                cpt++;
+    public void updateArchivedPlannings() {
+        ArrayList<Planning> tempNew = new ArrayList<>(plannings);
+        for (Planning planning : plannings) {
+            if (planning.getEndDay().isBefore(LocalDate.now())) {
+                archivedPlannings.add(planning);
+                tempNew.remove(planning);
             }
         }
-        if (cpt >=  5) {
-            badges.add(Badge.GOOD);
+        plannings.clear();
+        plannings.addAll(tempNew);
+    }
+
+    public ArrayList<Planning> getArchivedPlannings() {
+        return archivedPlannings;
+    }
+
+    public void updateBadge() {  // of the current planning
+        int cpt = 0;
+        if (getCurrentPlanning() !=  null) {
+            getCurrentPlanning().getBadges().clear();
+            for (Map.Entry<LocalDate, Day> e : getCurrentPlanning().getDays().entrySet()) {
+                Day day = e.getValue();
+                if (day.isGoalAchieved()) {
+                    cpt++;
+                }
+            }
+            if (cpt >= 5) {
+                getCurrentPlanning().getBadges().add(Badge.GOOD);
+            }
+            if (cpt >= 10) {
+                getCurrentPlanning().getBadges().add(Badge.GOOD);
+            }
+            if (cpt >= 15) {
+                getCurrentPlanning().getBadges().add(Badge.GOOD);
+                getCurrentPlanning().getBadges().add(Badge.VERY_GOOD);
+            }
+            if (cpt >= 30) {
+                getCurrentPlanning().getBadges().add(Badge.VERY_GOOD);
+            }
+            if (cpt >= 45) {
+                getCurrentPlanning().getBadges().add(Badge.VERY_GOOD);
+                getCurrentPlanning().getBadges().add(Badge.EXCELLENT);
+            }
+            Collections.sort(getCurrentPlanning().getBadges());
         }
-        if (cpt >=  10) {
-            badges.add(Badge.GOOD);
-        }
-        if (cpt >=  15) {
-            badges.add(Badge.GOOD);
-            badges.add(Badge.VERY_GOOD);
-        }
-        if (cpt >=  30) {
-            badges.add(Badge.VERY_GOOD);
-        }
-        if (cpt >=  45) {
-            badges.add(Badge.VERY_GOOD);
-            badges.add(Badge.EXCELLENT);
-        }
-        Collections.sort(badges);
     }
 
     public Map<String, Integer> getCategories() {
@@ -109,26 +124,21 @@ public class Calendar implements Serializable {
         Day day;
         Planning toReturn = null;
         // plannings can override, so there are no restriction to how plannings are added
-        if (!planning.getStartDay().isBefore(LocalDate.now()) && !planning.getEndDay().isBefore(planning.getStartDay())) {
-            if (!plannings.contains(planning)) {
-                for (LocalDate date = planning.getStartDay(); !date.isAfter(planning.getEndDay()); date = date.plusDays(1)) {
-                    if (!calendar.containsKey(date)) {
-                        day = new Day(date);
-                        planning.addDay(day);
-                        addDay(day); //  add to the calendar
-                    }
-                    else planning.addDay(calendar.get(date));
+        if (!plannings.contains(planning)) {
+            for (LocalDate date = planning.getStartDay(); !date.isAfter(planning.getEndDay()); date = date.plusDays(1)) {
+                if (!calendar.containsKey(date)) {
+                    day = new Day(date);
+                    planning.addDay(day);
+                    addDay(day); //  add to the calendar
                 }
-                plannings.add(planning);
+                else planning.addDay(calendar.get(date));
             }
-            else {
-                for (Planning p : plannings) {
-                    if (p.equals(planning)) toReturn = p;;
-                }
-            }
+            plannings.add(planning);
         }
         else {
-            System.out.println("ERREUR: Période de planning invalide!");
+            for (Planning p : plannings) {
+                if (p.equals(planning)) toReturn = p;;
+            }
         }
 
         return toReturn;
@@ -137,8 +147,18 @@ public class Calendar implements Serializable {
         // check whether the planning exists (using it's ID, and then removing it using the predefined method, must have a user validation before ...)
         plannings.remove(planning);
     }
-    public void extendPlanning(Planning planning) {
-        //check first that the given planning is extendable, if so then call : planning.extendPlanning
+    public void extendPlanning(Planning planning, LocalDate newEndDate) {
+        Day day;
+        LocalDate oldEndDate = planning.getEndDay();
+        planning.setStartEndDay(planning.getStartDay(), newEndDate);
+        for (LocalDate date = oldEndDate; !date.isAfter(newEndDate); date = date.plusDays(1)) {
+            if (!calendar.containsKey(date)) {
+                day = new Day(date);
+                planning.addDay(day);
+                addDay(day); //  add to the calendar
+            }
+            else planning.addDay(calendar.get(date));
+        }
     }
 
     //temp

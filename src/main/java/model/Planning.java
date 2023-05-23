@@ -10,6 +10,11 @@ public class Planning implements Serializable {
     private TreeMap<LocalDate, Day> days = new TreeMap<>();
     private LocalDate startDay;
     private LocalDate endDay;
+    private final List<Badge> badges = new ArrayList<>();
+
+    public List<Badge> getBadges() {
+        return badges;
+    }
 
     public Planning(LocalDate startDay, LocalDate endDay, Calendar calendar) {
         this.startDay = startDay;
@@ -32,9 +37,6 @@ public class Planning implements Serializable {
     }
     public void addDay(Day day) {
         days.putIfAbsent(day.getDate(), day);
-    }
-    public void extendPlanning(){
-        // checks if extension is possible in the method extendPlanning of Calendar, after confirmation the extension operation is done here
     }
 
     // temp
@@ -71,5 +73,27 @@ public class Planning implements Serializable {
         }
 
         return true;
+    }
+
+    public int[] getStats() {
+        // 0: nb of completed tasks (cpt1), 1: nb of completed projects (cpt2)
+        int cpt1 = 0;
+        int cpt2 = 0;
+        List<Project> prjts = new ArrayList<>();
+
+        for (Map.Entry<LocalDate, Day> e : days.entrySet()) {
+            for (FreeZone zone : e.getValue().getZones()) {
+                if (zone instanceof OccupiedZone) {
+                    if (((OccupiedZone) zone).getTask().getState().equals(State.COMPLETED)) cpt1++;
+                    if (((OccupiedZone) zone).getTask().getProject() !=  null) prjts.add(((OccupiedZone) zone).getTask().getProject());
+                }
+            }
+        }
+
+        for (Project project : prjts) {
+            if (project.isCompleted()) cpt2++;
+        }
+
+        return new int[]{cpt1, cpt2};
     }
 }

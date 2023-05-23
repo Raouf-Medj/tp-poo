@@ -25,10 +25,13 @@ import model.Calendar;
 import model.exceptions.BeyondDeadlineException;
 import model.exceptions.NotFitInDayExeception;
 import model.exceptions.NotFitInZoneException;
+import model.users.Users;
 
 public class AddController implements Initializable {
     private Stage currentStage;
+    private Stage parentStage;
     private Calendar calendarModel;
+    private Users usersModel;
 
     // ----------- AddTask -----------
     @FXML
@@ -152,6 +155,7 @@ public class AddController implements Initializable {
 
             AddController controller = loader.getController();
             controller.setCalendarModel(calendarModel);
+            controller.setUsersModel(usersModel);
             // other models
 
             controller.initVbox(newPlanning);
@@ -160,6 +164,7 @@ public class AddController implements Initializable {
             currentStage.setTitle("Add free timeslots");
             currentStage.setResizable(false);
             controller.setCurrentStage(currentStage);
+            controller.setParentStage(parentStage);
             currentStage.show();
         }
     }
@@ -175,7 +180,7 @@ public class AddController implements Initializable {
     }
 
     @FXML
-    void addFreezones(ActionEvent event) {
+    void addFreezones(ActionEvent event) throws IOException {
 
         boolean stop = false;
         for (Map.Entry<LocalDate, Day> e : newPlanning.getDays().entrySet()) {
@@ -204,6 +209,24 @@ public class AddController implements Initializable {
                 }
             }
             currentStage.close();
+
+            // refresh the parent stage
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/dashboard.fxml"));
+            Parent root = loader.load();
+
+            DashboardController controller = loader.getController();
+            controller.setUsersModel(usersModel);
+            controller.setCalendarModel(calendarModel);
+            // other models
+
+            Scene scene = new Scene(root);
+            controller.setCurrentStage(parentStage);
+            parentStage.setScene(scene);
+            parentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Dashboard");
+            parentStage.setResizable(false);
+            parentStage.show();
+
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -218,8 +241,16 @@ public class AddController implements Initializable {
         this.calendarModel = calendarModel;
     }
 
+    public void setUsersModel(Users usersModel) {
+        this.usersModel = usersModel;
+    }
+
     public void setCurrentStage(Stage currentStage) {
         this.currentStage = currentStage;
+    }
+
+    public void setParentStage(Stage parentStage) {
+        this.parentStage = parentStage;
     }
 
     private Spinner<Integer> createSpinner() {

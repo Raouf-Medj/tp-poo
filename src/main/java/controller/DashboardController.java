@@ -65,6 +65,12 @@ public class DashboardController implements Initializable {
     @FXML
     private ImageView badge;
 
+    @FXML
+    private Label currentPlanningLabel;
+
+    @FXML
+    private Button extendPlanning;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (month !=  null) {
@@ -111,13 +117,41 @@ public class DashboardController implements Initializable {
 
             calendarModel.updateBadge();
 
-            if (!calendarModel.getBadges().isEmpty()) {
-                Collections.sort(calendarModel.getBadges());
-                badge.setImage(new Image("/"+calendarModel.getBadges().get(calendarModel.getBadges().size()-1).toString()+".png"));
-                badge.setFitWidth(42);
-                badge.setPreserveRatio(true);
+            if (calendarModel.getCurrentPlanning() !=  null) {
+                currentPlanningLabel.setText(calendarModel.getCurrentPlanning().toString());
+                if (!calendarModel.getCurrentPlanning().getBadges().isEmpty()) {
+                    Collections.sort(calendarModel.getCurrentPlanning().getBadges());
+                    badge.setImage(new Image("/"+calendarModel.getCurrentPlanning().getBadges().get(calendarModel.getCurrentPlanning().getBadges().size()-1).toString()+".png"));
+                    badge.setFitWidth(42);
+                    badge.setPreserveRatio(true);
+                }
+            }
+            else {
+                currentPlanningLabel.setText("--");
+                extendPlanning.setDisable(true);
             }
         }
+    }
+
+    @FXML
+    void extendPlanning(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/extendPlanning.fxml"));
+        Parent root = loader.load();
+
+        ExtendPlanningController controller = loader.getController();
+        controller.setCalendarModel(calendarModel);
+        controller.setUsersModel(usersModel);
+        // other models
+
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Extend the current planning");
+        newStage.setResizable(false);
+        controller.setCurrentStage(newStage);
+        controller.setParentStage(currentStage);
+        newStage.show();
     }
 
     public void setCurrentStage(Stage currentStage) {
@@ -169,6 +203,26 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    void gotoHistory(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/history.fxml"));
+        Parent root = loader.load();
+
+        HistoryController controller = loader.getController();
+        controller.setUsersModel(usersModel);
+        controller.setCalendarModel(calendarModel);
+        controller.init();
+        // other models
+
+        Scene scene = new Scene(root);
+        controller.setCurrentStage(currentStage);
+        currentStage.setScene(scene);
+        currentStage.setTitle("Planify - MEDJADJ & ABOUD - 2023 : Planning history");
+        currentStage.setResizable(false);
+        currentStage.show();
+    }
+
+    @FXML
     void viewToday(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/dayView.fxml"));
@@ -215,6 +269,7 @@ public class DashboardController implements Initializable {
 
         AddController controller = loader.getController();
         controller.setCalendarModel(calendarModel);
+        controller.setUsersModel(usersModel);
         // other models
 
         Scene scene = new Scene(root);
@@ -223,6 +278,7 @@ public class DashboardController implements Initializable {
         newStage.setTitle("Add a new planning");
         newStage.setResizable(false);
         controller.setCurrentStage(newStage);
+        controller.setParentStage(currentStage);
         newStage.show();
     }
 

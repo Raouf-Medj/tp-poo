@@ -32,10 +32,11 @@
                   <MenuItem mnemonicParsing="false" onAction="#viewDashboard" text="Dashboard (Calendar)" />
                   <MenuItem mnemonicParsing="false" onAction="#viewToday" text="Today" />
                </items></Menu>
-                <Menu mnemonicParsing="false" text="Projects/Statistics">
+                <Menu mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#gotoProjects" text="Projects" />
                   <MenuItem mnemonicParsing="false" onAction="#gotoStatistics" text="Statistics" />
+                  <MenuItem mnemonicParsing="false" onAction="#gotoHistory" text="Planning history" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="Settings">
                <items>
@@ -53,7 +54,7 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="500.0">
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
                     <children>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="387.0" spacing="5.0">
                             <children>
@@ -75,32 +76,50 @@
                                 <ImageView fx:id="badge" fitHeight="42.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="263.0" spacing="20.0" style="-fx-background-color: #E3E1E1; -fx-background-radius: 20;">
-                            <children>
-                                <Button mnemonicParsing="false" onAction="#prevMonth" text="&lt;" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                                      <Label fx:id="month" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="MONTH####">
-                                          <font>
-                                              <Font size="16.0" />
-                                          </font>
-                                      </Label>
-                                      <Label fx:id="year" text="YEAR">
-                                          <font>
-                                              <Font size="16.0" />
-                                          </font>
-                                      </Label>
-                           </children>
-                        </VBox>
-                                <Button mnemonicParsing="false" onAction="#nextMonth" text="&gt;" />
-                            </children>
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="263.0" spacing="10.0" style="-fx-background-color: #E3E1E1; -fx-background-radius: 20;">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                             <padding>
                                 <Insets left="10.0" />
                             </padding>
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="80.0" prefWidth="212.0" spacing="1.0">
+                           <children>
+                              <Label text="Current planning:">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="currentPlanningLabel" text="#CURRENT" />
+                              <Button fx:id="extendPlanning" mnemonicParsing="false" onAction="#extendPlanning" text="Extend" />
+                           </children>
+                        </VBox>
+                     </children>
                         </HBox>
+                  <HBox alignment="CENTER" layoutX="962.0" layoutY="20.0" prefHeight="80.0" prefWidth="263.0" spacing="20.0" style="-fx-background-color: #E3E1E1; -fx-background-radius: 20;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#prevMonth" text="&lt;" />
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="month" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="MONTH####">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="year" text="YEAR">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#nextMonth" text="&gt;" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
                     </children>
                     <padding>
                         <Insets bottom="10.0" top="10.0" />

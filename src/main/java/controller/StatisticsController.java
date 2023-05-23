@@ -129,19 +129,21 @@ public class StatisticsController {
 
     public void init() {
         // initialize all labels and HBox and pie chart
-        if (!calendarModel.getBadges().isEmpty()) {
-            for (Badge badge : calendarModel.getBadges()) {
-                ImageView image = new ImageView();
-                image.setImage(new Image("/"+badge.toString()+".png"));
-                image.setFitWidth(80);
-                image.setPreserveRatio(true);
-                badges.getChildren().add(image);
+        if (calendarModel.getCurrentPlanning() !=  null) {
+            if (!calendarModel.getCurrentPlanning().getBadges().isEmpty()) {
+                for (Badge badge : calendarModel.getCurrentPlanning().getBadges()) {
+                    ImageView image = new ImageView();
+                    image.setImage(new Image("/"+badge.toString()+".png"));
+                    image.setFitWidth(80);
+                    image.setPreserveRatio(true);
+                    badges.getChildren().add(image);
+                }
             }
-        }
-        else {
-            Label label = new Label("No badges to show");
-            label.setStyle("-fx-font-size: 20px;");
-            badges.getChildren().add(label);
+            else {
+                Label label = new Label("No badges to show");
+                label.setStyle("-fx-font-size: 20px;");
+                badges.getChildren().add(label);
+            }
         }
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
