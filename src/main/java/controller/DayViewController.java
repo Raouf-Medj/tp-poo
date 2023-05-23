@@ -204,6 +204,7 @@ public class DayViewController {
         selectedTaskName.setText("Not Selected");
         selectedTimeSlot.setText("Not Selected");
         unscheduleButton.setDisable(true);
+        state.getItems().clear();
         state.getItems().addAll(State.values());
         state.setDisable(true);
         saveStateButton.setDisable(true);
@@ -340,14 +341,26 @@ public class DayViewController {
                 comment.setStyle("-fx-text-fill: Black;");
             }*/
             if(numberOfTasks<=goal && goal!=0){
+                progressBar.setProgress(((double)numberOfDoneTasks)/((double)goal));
+            }
+            else{
                 progressBar.setProgress(((double)numberOfDoneTasks)/((double)numberOfTasks));
             }
-            progressBar.setProgress(((double)numberOfDoneTasks)/((double)numberOfTasks));
-            if(numberOfTasks==numberOfDoneTasks){
-                comment.setText("Well done ! all tasks finished");
+
+            if(numberOfDoneTasks>goal && numberOfDoneTasks==numberOfTasks){
+                comment.setText("Excellent ! you finished all your daily tasks");
                 comment.setStyle("-fx-text-fill: Green;");
                 model.setGoalAchieved(true);
-            }else if(numberOfDoneTasks>=1){
+            } else if(numberOfDoneTasks>=goal && numberOfDoneTasks<=numberOfTasks){
+                comment.setText("Well done ! you reached you daily goal !");
+                comment.setStyle("-fx-text-fill: Green;");
+                model.setGoalAchieved(true);
+            }
+            else if(numberOfDoneTasks>=1 && goal!=0){
+                comment.setText("You have "+(numberOfDoneTasks)+" out of "+goal+" tasks done");
+                comment.setStyle("-fx-text-fill: Black;");
+            }
+            else if(numberOfDoneTasks>=1){
                 comment.setText("You have "+(numberOfDoneTasks)+" out of "+numberOfTasks+" tasks done");
                 comment.setStyle("-fx-text-fill: Black;");
             }
