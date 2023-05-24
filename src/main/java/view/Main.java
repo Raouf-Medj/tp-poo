@@ -107,43 +107,37 @@ public class Main extends Application {
         u.setConnected(true);
         Calendar calendar = new Calendar();
         Planning planning1 = new Planning(LocalDate.of(2023, 5, 23), LocalDate.of(2023, 5, 31), calendar);
-        Planning planning2 = new Planning(LocalDate.of(2023, 5, 1), LocalDate.of(2023, 5, 17), calendar);
+        Planning planning2 = new Planning(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 5, 17), calendar);
+        Planning planning3 = new Planning(LocalDate.of(2023, 3, 15), LocalDate.of(2023, 3, 30), calendar);
+        Planning planning4 = new Planning(LocalDate.of(2023, 1, 2), LocalDate.of(2023, 1, 9), calendar);
 
         calendar.addPlanning(planning1);
         calendar.addPlanning(planning2);
+        calendar.addPlanning(planning3);
+        calendar.addPlanning(planning4);
 
+        for (int i = 1; i < 31; i++) {
+            calendar.getDay(LocalDate.of(2023, 4, i)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        }
+        for (int i = 1; i < 18; i++) {
+            calendar.getDay(LocalDate.of(2023, 5, i)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        }
 
-        calendar.getDay(LocalDate.of(2023, 5, 1)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 2)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 3)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 4)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 5)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 6)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 7)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 8)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 9)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 10)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 11)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 12)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 13)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 14)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 15)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 16)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 17)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        for (int i = 23; i < 32; i++) {
+            calendar.getDay(LocalDate.of(2023, 5, i)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        }
 
+        for (int i = 15; i < 30; i++) {
+            calendar.getDay(LocalDate.of(2023, 3, i)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        }
 
-
-        calendar.getDay(LocalDate.of(2023, 5, 23)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 24)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 25)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 26)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 27)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 28)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 29)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 30)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 31)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        for (int i = 2; i < 10; i++) {
+            calendar.getDay(LocalDate.of(2023, 1, i)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
+        }
 
         calendar.fillPlanning(planning2,taskArrayList2,Duration.ofMinutes(30));
+        calendar.fillPlanning(planning3,taskArrayList2,Duration.ofMinutes(30));
+        calendar.fillPlanning(planning4,taskArrayList2,Duration.ofMinutes(30));
         calendar.getUnscheduled().addAll(taskArrayList1);
 
         simpleTask6.setState(State.COMPLETED);
@@ -160,28 +154,36 @@ public class Main extends Application {
         simpleTask55.setState(State.COMPLETED);
 
 
-        calendar.getDay(LocalDate.of(2023,5,1)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,2)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,3)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,4)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,5)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,6)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,7)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,8)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,9)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,10)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,11)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,12)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,13)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,14)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,15)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,16)).setGoalAchieved(true);
-        calendar.getDay(LocalDate.of(2023,5,17)).setGoalAchieved(true);
+        for (int i = 1; i < 31; i++) {
+            calendar.getDay(LocalDate.of(2023,4,i)).setGoalAchieved(true);
+        }
+        for (int i = 1; i < 18; i++) {
+            calendar.getDay(LocalDate.of(2023,5,i)).setGoalAchieved(true);
+        }
+
+        for (int i = 15; i < 30; i++) {
+            calendar.getDay(LocalDate.of(2023,3,i)).setGoalAchieved(true);
+        }
+
+        for (int i = 2; i < 10; i++) {
+            calendar.getDay(LocalDate.of(2023,1,i)).setGoalAchieved(true);
+        }
 
         planning2.getBadges().add(Badge.GOOD);
         planning2.getBadges().add(Badge.GOOD);
         planning2.getBadges().add(Badge.GOOD);
         planning2.getBadges().add(Badge.VERY_GOOD);
+        planning2.getBadges().add(Badge.VERY_GOOD);
+        planning2.getBadges().add(Badge.VERY_GOOD);
+        planning2.getBadges().add(Badge.EXCELLENT);
+
+        planning3.getBadges().add(Badge.GOOD);
+        planning3.getBadges().add(Badge.GOOD);
+        planning3.getBadges().add(Badge.GOOD);
+        planning3.getBadges().add(Badge.VERY_GOOD);
+
+        planning4.getBadges().add(Badge.GOOD);
+        planning4.getBadges().add(Badge.GOOD);
 
         u.setCalendarModel(calendar);
 
