@@ -67,7 +67,7 @@ public class Main extends Application {
         SimpleTask simpleTask22=new SimpleTask("Practice touch typing",categoryActivity, Priority.HIGH, LocalDateTime.of(2023,6,30,15,0), Duration.ofHours(1),1);
         SimpleTask simpleTask33=new SimpleTask("task33",categorySimple, Priority.LOW, LocalDateTime.of(2023,6,30,15,0), Duration.ofHours(2),3);
         SimpleTask simpleTask44=new SimpleTask("task44",categorySimple, Priority.LOW, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(1),1);
-        SimpleTask simpleTask55=new SimpleTask("task55",categorySimple, Priority.HIGH, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),2);
+        SimpleTask simpleTask55=new SimpleTask("task55",categorySimple, Priority.HIGH, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(1),2);
         SimpleTask simpleTask66=new SimpleTask("task66",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),3);
         SimpleTask simpleTask77=new SimpleTask("task77",categorySimple, Priority.HIGH, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),4);
         SimpleTask simpleTask88=new SimpleTask("task88",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),4);
@@ -93,22 +93,24 @@ public class Main extends Application {
         taskArrayList2.add(simpleTask7);
         taskArrayList2.add(simpleTask8);
         taskArrayList2.add(simpleTask9);
+        taskArrayList2.add(simpleTask10);
         taskArrayList2.add(complexTask3);
         taskArrayList2.add(complexTask4);
+        taskArrayList2.add(complexTask5);
+        taskArrayList2.add(complexTask6);
         taskArrayList2.add(simpleTask33);
         taskArrayList2.add(simpleTask44);
-
+        taskArrayList2.add(simpleTask55);
 
 
         User u = new User("Ibrahim","");
         u.setConnected(true);
         Calendar calendar = new Calendar();
         Planning planning1 = new Planning(LocalDate.of(2023, 5, 23), LocalDate.of(2023, 5, 31), calendar);
-        Planning planning2 = new Planning(LocalDate.of(2023, 5, 1), LocalDate.of(2023, 5, 10), calendar);
-        Planning planning3 = new Planning(LocalDate.of(2023, 5, 12), LocalDate.of(2023, 5, 21), calendar);
+        Planning planning2 = new Planning(LocalDate.of(2023, 5, 1), LocalDate.of(2023, 5, 17), calendar);
+
         calendar.addPlanning(planning1);
         calendar.addPlanning(planning2);
-        calendar.addPlanning(planning3);
 
 
         calendar.getDay(LocalDate.of(2023, 5, 1)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
@@ -121,19 +123,13 @@ public class Main extends Application {
         calendar.getDay(LocalDate.of(2023, 5, 8)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 9)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 10)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-
-
+        calendar.getDay(LocalDate.of(2023, 5, 11)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 12)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 13)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 14)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 15)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 16)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
         calendar.getDay(LocalDate.of(2023, 5, 17)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 18)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 19)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 20)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-        calendar.getDay(LocalDate.of(2023, 5, 21)).insertZone(new FreeZone(LocalTime.of(18, 0), LocalTime.of(22, 0)));
-
 
 
 
@@ -154,45 +150,50 @@ public class Main extends Application {
         simpleTask7.setState(State.COMPLETED);
         simpleTask8.setState(State.COMPLETED);
         simpleTask9.setState(State.COMPLETED);
+        simpleTask10.setState(State.COMPLETED);
         complexTask3.setState(State.COMPLETED);
         complexTask4.setState(State.COMPLETED);
+        complexTask5.setState(State.COMPLETED);
+        complexTask6.setState(State.COMPLETED);
         simpleTask33.setState(State.COMPLETED);
         simpleTask44.setState(State.COMPLETED);
-
-        calendar.getDay(LocalDate.of(2023,5,1)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,2)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,3)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,4)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,5)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,6)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,7)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,8)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,9)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,10)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,12)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,13)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,14)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,15)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,16)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,17)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,18)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,19)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,20)).setProgressState(calendar);
-        calendar.getDay(LocalDate.of(2023,5,21)).setProgressState(calendar);
+        simpleTask55.setState(State.COMPLETED);
 
 
+        calendar.getDay(LocalDate.of(2023,5,1)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,2)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,3)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,4)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,5)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,6)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,7)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,8)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,9)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,10)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,11)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,12)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,13)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,14)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,15)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,16)).setGoalAchieved(true);
+        calendar.getDay(LocalDate.of(2023,5,17)).setGoalAchieved(true);
 
-
-
+        planning2.getBadges().add(Badge.GOOD);
+        planning2.getBadges().add(Badge.GOOD);
+        planning2.getBadges().add(Badge.GOOD);
+        planning2.getBadges().add(Badge.VERY_GOOD);
 
         u.setCalendarModel(calendar);
 
         /****************************************************/
 
         Users users = loadData();
-        users.getUsers().put("Ibrahim", u); // temp
-        if (users ==  null) {
+        if(users!=null){
+            users.getUsers().put("Ibrahim", u);// temp
+        }
+        else{
             users = new Users();
+            users.getUsers().put("Ibrahim", u);
             users.getUsers().put("", new User("", "")); // temp
         }
 
