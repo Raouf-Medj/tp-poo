@@ -455,4 +455,32 @@ public class Day implements Comparable<Day>, Serializable {
         return sum;
     }
 
+    public void updateNumberOfDoneTasks(int numberOfTasks,int numberOfDoneTasks,Day day){
+        numberOfDoneTasks=0;
+        numberOfTasks=0;
+        for(FreeZone zn : day.getZones()){
+            if(zn instanceof OccupiedZone){
+                if(((OccupiedZone) zn).getTask().getState().equals(State.COMPLETED)){
+                    numberOfDoneTasks++;
+                    numberOfTasks++;
+                }
+                else if(!((OccupiedZone) zn).getTask().getState().equals(State.CANCELLED)&&!((OccupiedZone) zn).getTask().getState().equals((State.DELAYED))){
+                    numberOfTasks++;
+                }
+            }
+        }
+    }
+
+    public void setProgressState(Calendar cal){
+        int goal = cal.getNbCompletedToCongratulate();
+        int numberOfTasks=0;
+        int numberOfDoneTasks=0;
+        this.setGoalAchieved(false);
+        updateNumberOfDoneTasks(numberOfTasks,numberOfDoneTasks,this);
+
+        if(numberOfDoneTasks>=goal){
+            setGoalAchieved(true);
+
+        }
+    }
 }
