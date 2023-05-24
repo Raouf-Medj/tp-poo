@@ -138,6 +138,7 @@ public class AddController implements Initializable {
     void addPlanning(ActionEvent event) throws IOException {
         LocalDate start = startDate.getValue();
         LocalDate end = endDate.getValue();
+
         if (start.isBefore(LocalDate.now()) || start.isAfter(end)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
