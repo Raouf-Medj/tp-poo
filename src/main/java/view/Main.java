@@ -74,6 +74,15 @@ public class Main extends Application {
         SimpleTask simpleTask99=new SimpleTask("task99",categorySimple, Priority.LOW, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),4);
         SimpleTask simpleTask100=new SimpleTask("task100",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),2);
 
+        SimpleTask projectTask1=new SimpleTask("Choisir dates et destinations (Test project)",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),0);
+        SimpleTask projectTask2=new SimpleTask("Réserver (Test project)",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,20,15,0), Duration.ofHours(2),0);
+        SimpleTask projectTask3=new SimpleTask("Acheter les billets (Test project)",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,21,15,0), Duration.ofHours(1),0);
+
+
+        SimpleTask notToPlanify1=new SimpleTask("Tache à ne pas planifier pour demo 1",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,4,15,0), Duration.ofHours(2),0);
+        SimpleTask notToPlanify2=new SimpleTask("Tache à ne pas planifier pour demo 2",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,20,15,0), Duration.ofHours(2),0);
+        SimpleTask notToPlanify3=new SimpleTask("Tache à ne pas planifier pour demo 3",categorySimple, Priority.MEDIUM, LocalDateTime.of(2023,6,21,15,0), Duration.ofHours(1),0);
+
 
         ArrayList<Task> taskArrayList1 = new ArrayList<Task>(0);
         ArrayList<Task> taskArrayList2 = new ArrayList<Task>(0);
@@ -88,6 +97,10 @@ public class Main extends Application {
         taskArrayList1.add(simpleTask22);
         taskArrayList1.add(complexTask1);
         taskArrayList1.add(complexTask2);
+        taskArrayList1.add(projectTask1);
+        taskArrayList1.add(projectTask2);
+        taskArrayList1.add(projectTask3);
+
 
         taskArrayList2.add(simpleTask6);
         taskArrayList2.add(simpleTask7);
@@ -101,6 +114,11 @@ public class Main extends Application {
         taskArrayList2.add(simpleTask33);
         taskArrayList2.add(simpleTask44);
         taskArrayList2.add(simpleTask55);
+
+
+        taskArrayList3.add(notToPlanify1);
+        taskArrayList3.add(notToPlanify2);
+        taskArrayList3.add(notToPlanify3);
 
 
         User u = new User("Ibrahim","");
@@ -139,6 +157,7 @@ public class Main extends Application {
         calendar.fillPlanning(planning3,taskArrayList2,Duration.ofMinutes(30));
         calendar.fillPlanning(planning4,taskArrayList2,Duration.ofMinutes(30));
         calendar.getUnscheduled().addAll(taskArrayList1);
+        calendar.getUnscheduled().addAll(taskArrayList3);
 
         simpleTask6.setState(State.COMPLETED);
         simpleTask7.setState(State.COMPLETED);
